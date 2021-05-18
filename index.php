@@ -401,7 +401,7 @@
                     <div class="cta-content text-center wow fadeIn" data-wow-delay="0.5s">
                         <div class="section-heading">
                             <p>Contáctanos</p>
-                            <h2>¿Estás listo para hablar?</h2>
+                            <h2>Estás listo para hablar?</h2>
                             <a href="./contacto/" class="btn mosh-btn">Contáctanos</a>
                         </div>
                     </div>
