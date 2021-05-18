@@ -338,7 +338,7 @@
                 <div class="col-12">
                     <div class="section-heading text-center mb-0">
                         <p>Nuestro trabajo</p>
-                        <h2>Así es como funciona El Bunker</h2>
+                        <h2>Así es como funciona El Bunkersito</h2>
                     </div>
                 </div>
             </div>
