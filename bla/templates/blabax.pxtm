@@ -7,9 +7,16 @@
 <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 <link rel="stylesheet" href="blabax.css?xyz=<?php print $settings['forcereload'];?>" />
 <link rel="stylesheet" href="emoticons.css?xyz=<?php print $settings['forcereload'];?>" />
+
+<!--  Bootstrap -->
+  <link rel="stylesheet" href="../assets/bootstrap/css/bootstrap.min.css">
+<!--  Bootstrap -->
+
 <script src="recorderControl.js"></script>
+
 <script src="jquery.min.2.1.js"></script>
 <script src="https://cdn.rawgit.com/mattdiamond/Recorderjs/08e7abd9/dist/recorder.js"></script>
+
 
 <style>
 .g1{}
@@ -112,6 +119,9 @@
     float:left;
     background-color:#f2f2f2;z-index:800
   }
+  .null{
+
+  }
   .audioControl{
     position: absolute;
     float:left;
@@ -135,32 +145,42 @@
   }
   .audioPlay{
     background:url('../images/play.png') no-repeat
+
+  }
+  .ocultar{
+    display:none;
   }
   .audioPause{
     background:url('../images/pause.png') no-repeat
   }
 
-  .redondeado {
-    border-radius: 7px;
+  .redondeado-input {
+    border-radius: 15px;
+    margin-left:23px;
+   background-color: #dfe;
+  }
+
+  .caja-padin{
+    padding: 5px;
   }
 
 
 </style>
-<!-- INICIO CODIGO TITULO MOVIMIENTO -->
+
 <script type="text/JavaScript">
 
   function changeClass(){
         // code examples from above
-    if (document.getElementById("bottom_dmore").className == 'x_bcolor_z sfade1') {
+    if (document.getElementById("bottom_dmore").className == 'null sfade1') {
       let elemento = document.getElementById("bottom_dmore")
-          elemento.classList.remove("sfade1");
+      elemento.classList.remove("sfade1");
     }else{
       document.getElementById("bottom_dmore").className += " sfade1";
     }
   }
 
   window.onload = function(){
-      document.getElementById("bottom_bmore").addEventListener( 'click' , changeClass );
+      document.getElementById("bottom_bmore").addEventListener('click', changeClass);
   }
 
   var repeat = 1                    // Si ponemos valor 0 sólo se repetirá unavez el movimiento
@@ -302,7 +322,9 @@
 
   <div id="online_title">
     <div onclick="display_layout_frs(0)" class="online_title_close svg_clos"></div>
-    <div class="online_title_text"><?php print $lang['online'];?></div>
+    <div class="online_title_text">
+      <?php print $lang['online'];?>
+      </div>
   </div>
 
   <div id="online_users" onmousedown="m2down(event)" onmousemove="m2move(this,event)"></div>
@@ -419,10 +441,11 @@
 
   <form action="?do" onsubmit="msg_send();return false" autocomplete="off">
 
-    <div id="bottom_middle" class="x_bcolor_z">
+    <div id="bottom_middle" class="x_bcolor_z caja-padin">
 
-      <input type="text" id="text_input" spellcheck="true" maxlength="320" class="x_input_blabws redondeado" placeholder=" <?php print $lang['message'];?> "/>
-
+      <input type="text" id="text_input" spellcheck="true" maxlength="320" class="redondeado-input" placeholder=" <?php print $lang['message'];?> "/>
+       <ol id="recordingsList" class="null ocultar"></ol>
+        <h5 id="grabando" class="null">Recordings</h5>
     </div>
 
     <div
@@ -444,25 +467,16 @@
     ">
     </div>
 
-    <div id="bottom_bmore" title="Voice message - Video message - Doodle - Upload" class="x_bcolor_z x_left_rounded svg_avbt" onclick="changeClass()">
+    <div id="bottom_bmore" style="margin-left:6px;" title="Voice message - Video message - Doodle - Upload" class="x_bcolor_z x_left_rounded svg_avbt" onclick="changeClass()">
     </div>
 
-    <div id="bottom_dmore" class="x_bcolor_z">
+    <div id="bottom_dmore" class="null">
 
       <div style="width:5px;cursor:default"></div>
-      <div id="bottom_start_arec" title="Voice message" class="svg_aonn" onclick="startRecording()"></div>
-      <div id="bottom_start_arec" title="Voice message" class="svg_pausa" onclick="pauseRecording()"></div>
-      <div id="bottom_start_arec" title="Voice message" class="svg_detener" onclick="stopRecording()"></div>
+      <div id="recordButton" title="Voice message" class="svg_aonn" onclick="startRecording()"></div>
+      <div id="pauseButton" title="Voice message" class="svg_pausa" onclick="pauseRecording()"></div>
+      <div id="stopButton" title="Voice message" class="svg_detener" onclick="stopRecording()"></div>
 
-      <div id="controls" style="display:flex;">
-
-        <button style="display:none;" id="pauseButton" onclick="pauseRecording()">Pause</button>
-        <button style="display:none;" id="stopButton" onclick="stopRecording()">Stop</button>
-        <ol id="recordingsList"></ol>
-
-      </div>
-
-      <h3>Recordings</h3>
 
       <div
         title="Doodle"
@@ -497,6 +511,7 @@
 
     <div
       id="bottom_send"
+      style="margin-left:100px;"
       class="x_bcolor_z x_right_rounded svg_send"
       onclick="shoop(this,1,100);msg_send()">
     </div>

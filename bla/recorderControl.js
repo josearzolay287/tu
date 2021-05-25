@@ -11,53 +11,63 @@ var input;
 var AudioContext = window.AudioContext || window.webkitAudioContext;
 var audioContext = new AudioContext;
 //new audio context to help us record
-var recordButton = document.getElementById("recordButton");
-var stopButton = document.getElementById("stopButton");
-var pauseButton = document.getElementById("pauseButton");
-//add events to those 3 buttons
-//recordButton.addEventListener("click", startRecording);
-//stopButton.addEventListener("click", stopRecording);
-//pauseButton.addEventListener("click", pauseRecording);
+window.onload = function(){
+
+    var recordButton = document.getElementById("recordButton");
+    var stopButton = document.getElementById("stopButton");
+    var pauseButton = document.getElementById("pauseButton");
+    //add events to those 3 buttons
+}
+
+recordButton.addEventListener("click", startRecording);
+stopButton.addEventListener("click", stopRecording);
+pauseButton.addEventListener("click", pauseRecording);
 
 function startRecording() {
-    console.log("recordButton clicked");
-/* Simple constraints object, for more advanced audio features see
 
-https://addpipe.com/blog/audio-constraints-getusermedia/ */
+    document.getElementById("text_input").className += " ocultar";
 
-var constraints = {
-    audio: true,
-    video: false
-}
-/* Disable the record button until we get a success or fail from getUserMedia() */
+    if (document.getElementById("grabando").className == "null ocultar") {
 
-//recordButton.disabled = true;
-//stopButton.disabled = false;
-//pauseButton.disabled = false
+        document.getElementById("grabando").classList.remove("ocultar")
+    }
+    /* Simple constraints object, for more advanced audio features see
 
-/* We're using the standard promise based getUserMedia()
+    https://addpipe.com/blog/audio-constraints-getusermedia/ */
 
-https://developer.mozilla.org/en-US/docs/Web/API/MediaDevices/getUserMedia */
+    var constraints = {
+        audio: true,
+        video: false
+    }
+    /* Disable the record button until we get a success or fail from getUserMedia() */
 
-navigator.mediaDevices.getUserMedia(constraints).then(function(stream) {
-    console.log("getUserMedia() success, stream created, initializing Recorder.js ...");
-    /* assign to gumStream for later use */
-    gumStream = stream;
-    /* use the stream */
-    input = audioContext.createMediaStreamSource(stream);
-    /* Create the Recorder object and configure to record mono sound (1 channel) Recording 2 channels will double the file size */
-    rec = new Recorder(input, {
-        numChannels: 1
-    })
-    //start the recording process
-    rec.record()
-    console.log("Recording started");
-}).catch(function(err) {
-    //enable the record button if getUserMedia() fails
-    recordButton.disabled = false;
-    stopButton.disabled = true;
-    pauseButton.disabled = true
-});
+    recordButton.disabled = true;
+    stopButton.disabled = false;
+    pauseButton.disabled = false
+
+    /* We're using the standard promise based getUserMedia()
+
+    https://developer.mozilla.org/en-US/docs/Web/API/MediaDevices/getUserMedia */
+
+    navigator.mediaDevices.getUserMedia(constraints).then(function(stream) {
+        console.log("getUserMedia() success, stream created, initializing Recorder.js ...");
+        /* assign to gumStream for later use */
+        gumStream = stream;
+        /* use the stream */
+        input = audioContext.createMediaStreamSource(stream);
+        /* Create the Recorder object and configure to record mono sound (1 channel) Recording 2 channels will double the file size */
+        rec = new Recorder(input, {
+            numChannels: 1
+        })
+        //start the recording process
+        rec.record()
+        console.log("Recording started");
+    }).catch(function(err) {
+        //enable the record button if getUserMedia() fails
+        recordButton.disabled = false;
+        stopButton.disabled = true;
+        pauseButton.disabled = true
+    });
 }
 
 
@@ -66,23 +76,28 @@ function pauseRecording() {
     if (rec.recording) {
         //pause
         rec.stop();
-        //pauseButton.innerHTML = "Resume";
+        pauseButton.innerHTML = "Resume";
     } else {
         //resume
         rec.record()
-        //pauseButton.innerHTML = "Pause";
+        pauseButton.innerHTML = "Pause";
     }
 }
 
 
 function stopRecording() {
+
+    let elemento = document.getElementById("bottom_dmore")
+    elemento.classList.remove("sfade1");
+    console.log('borrando clase del bottom')
+
     console.log("stopButton clicked");
     //disable the stop button, enable the record too allow for new recordings
-    //stopButton.disabled = true;
-    //recordButton.disabled = false;
-    //pauseButton.disabled = true;
+    stopButton.disabled = true;
+    recordButton.disabled = false;
+    pauseButton.disabled = true;
     //reset button just in case the recording is stopped while paused
-    //pauseButton.innerHTML = "Pause";
+    pauseButton.innerHTML = "Pause";
     //tell the recorder to stop the recording
     rec.stop(); //stop microphone access
     gumStream.getAudioTracks()[0].stop();
@@ -92,22 +107,30 @@ function stopRecording() {
 
 
 function createDownloadLink(blob) {
+    var recordingsList = document.getElementById("recordingsList")
     var url = URL.createObjectURL(blob);
     var au = document.createElement('audio');
+    var so = document.createElement('source');
     var li = document.createElement('li');
     var link = document.createElement('a');
     //add controls to the <audio> element
     au.controls = true;
-    au.src = url;
+    au.appendChild(so)
+    so.src = url;
+    so.type = "audio/mpeg"
     //link the a element to the blob
     link.href = url;
-    link.download = new Date().toISOString() + '.wav';
+    link.download = new Date().toISOString() + '.mp3';
     link.innerHTML = link.download;
     //add the new audio and a elements to the li element
     li.appendChild(au);
     li.appendChild(link);
     //add the li element to the ordered list
-    recordingsList.appendChild(li);
+    recordingsList.appendChild(au);
+    let elemento = document.getElementById("bottom_dmore")
+    document.getElementById("grabando").className += " ocultar";
+    recordingsList.classList.remove("ocultar");
+
 }
 
 
