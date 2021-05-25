@@ -8,12 +8,12 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <!-- The above 4 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-	
+
 	<meta name="description" content="Chatea con personas desconocidas en esta página web y conoce a nuevos amigos. Entra en las salas sin estar registrado y socialízate con nosotros todos los días.">
 	<meta name="author" content="Megias">
 	<link rel="canonical" href="https://tu-chat.com/" />
 	<meta name="keywords" content="chat, chats, chatear, chat windows, chat android, chat iphone, irc, ligar en chat, chatear gratis, webcams, gratis, chat online, chat gratis, chat online, chat html5, chat internacional, chat españa, chatear con amigos, chatear en chat">
-	
+
     <!-- Title -->
     <title>Chat gratis en Español | Tu-Chat</title>
 
@@ -26,7 +26,7 @@
     <!-- Responsive CSS -->
     <link href="assets/css/responsive.css" rel="stylesheet">
 	<link href="assets/css/cookie.css?5" rel="stylesheet">
-	
+
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 	<script type="text/javascript" src="assets/js/cookie.js?25"></script>
     <script type="text/javascript" src="admin.js"></script>
@@ -98,9 +98,9 @@
     <section class="welcome_area clearfix" id="home" style="background-image: url(assets/img/welcome-bg.png);background-size: 100% 100%;">
         <div style="position: absolute;margin-top: 110px;height: 50%;width: 100%;max-width: 100%;" class="container">
             <div style="margin: auto; width: 100%; padding: 10px;" class="titulo">
-                <h1>Tu-Chat El Bunker</h1>
+                <h1>Tu-Chat El Bunkercito</h1>
 				<h2 class="titulo2">Un Servicio De Chat Online</h2>
-				
+
 				<div class="col-12 text-center mt-50">
                     <a href="bla/index.php" class="btn mosh-btn">ACCEDER AL CHAT</a>
                 </div>
@@ -108,7 +108,7 @@
         </div>
     </section>
     <!-- ***** Welcome Area End ***** -->
-	
+
 	<!-- ***** Features Area Start ***** -->
     <section style="margin-top: -60px;" class="mosh-features-area section_padding_100 clearfix">
         <div class="container">
@@ -116,7 +116,7 @@
                 <div>
                     <div style="padding: 0px 15px;" class="features-content">
                         <h3 style="font-size: 32px; font-weight: 500; line-height: 1.2;">¡Bienvenido/a!</h3>
-                        <p style="line-height: 1.5; color: #212529;text-align:justify;font-weight: 300 !important; font-size: 1rem !important;">Chatea con nosotros en <strong>"El Bunker"</strong> de forma gratuita cuando lo desees y desde cualquier parte del mundo, ofrecemos un servicio de chat único en la red de Internet, somos una red social que contamos con la mayor seguridad, por esta razón somos tan seguros como un bunker. Somos más que una sala de chat, somos una familia donde el respeto es primordial.</p>
+                        <p style="line-height: 1.5; color: #212529;text-align:justify;font-weight: 300 !important; font-size: 1rem !important;">Chatea con nosotros en <strong>"El Bunkercito"</strong> de forma gratuita cuando lo desees y desde cualquier parte del mundo, ofrecemos un servicio de chat único en la red de Internet, somos una red social que contamos con la mayor seguridad, por esta razón somos tan seguros como un bunker. Somos más que una sala de chat, somos una familia donde el respeto es primordial.</p>
 						<p style="line-height: 1.5; color: #212529;text-align:justify;font-weight: 300 !important; font-size: 1rem !important;">Un chat gratis internacional basado en HTML5 en el cual podrás escribirte con amigos y personas desconocidas desde cualquier parte del mundo, contamos con una aplicación de envío de audios, y moderadores dispuestos para aclarar tus dudas, aceptamos a todo tipo de personas sin discriminar a nadie.</p>
                     </div>
                 </div>
@@ -124,7 +124,7 @@
         </div>
     </section>
     <!-- ***** Feature Area End ***** -->
-	
+
 	<section style="margin-top: -170px !important; height: 50%; width: 40%; margin: 0 auto;" class="mosh-features-area section_padding_100 clearfix">
 	    <div class="container">
             <div class="row">
@@ -136,10 +136,10 @@
                 </div>
             </div>
         </div>
-		
+
 		<div id="container-c5a3f3c1389338ff61191aea2998a303"></div>
 	</section>
-	
+
 	<!-- ***** Portfolio Area Start ***** -->
     <section style="margin-top: -170px;" class="mosh-portfolio-area section_padding_100_0 clearfix">
         <div class="container">
@@ -250,10 +250,10 @@
         </div>
     </section>
     <!-- ***** Portfolio Area End ***** -->
-	
+
     <!-- ***** Service Area Start ***** -->
     <section class="mosh-service-area clearfix">
-	
+
         <div class="container">
             <div class="row">
                 <div class="col-12">
@@ -264,7 +264,7 @@
                 </div>
             </div>
         </div>
-		
+
         <div class="container">
             <div class="row">
                 <div class="col-12">
@@ -496,16 +496,16 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
         </div>
     </footer>
     <!-- ***** Footer Area End ***** -->
-	
+
 	<div style="color: white;display:none" id="cookie-banner" class="cookie center">
 		Utilizamos cookies para optimizar su experiencia.
 		<span class="button-info"><a rel="canonical" href="https://tu-chat.com/privacidad" target="_blank">Política de privacidad</a></span>
 		<span onclick="createAcceptCookie()" id="cookie-button" class="button-ok"><a href="#">Aceptar</a></span>
-	</div>	
+	</div>
 	<noscript>
 		<p style="color: white; margin-top: 10px;"> Necesitas tener JavaScript activado para que el sitio funcione.</p>
 	</noscript>
-	
+
     <!-- jQuery-2.2.4 js -->
     <script src="assets/js/jquery-2.2.4.min.js"></script>
     <!-- Popper js -->
@@ -516,7 +516,7 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
     <script src="assets/js/plugins.js"></script>
     <!-- Active js -->
     <script src="assets/js/active.js"></script>
-	
+
 	<script type="text/javascript">
 	(sc_adv_out = window.sc_adv_out || []).push({
 		id: 834454,

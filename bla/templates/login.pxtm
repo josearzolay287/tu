@@ -8,7 +8,11 @@
 <style>
 <?php print $settings['style_delivery']."\n".$settings['webkit_css'];?>
 </style>
+<script src="validateForm.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 <script src="blabax.js?xyz=<?php print $settings['forcereload'];?>"></script>
+
+
 <!-- INICIO CODIGO TITULO MOVIMIENTO -->
 <script type="text/JavaScript">
    var repeat = 1                    // Si ponemos valor 0 sólo se repetirá unavez el movimiento
@@ -103,7 +107,7 @@ setTimeout("de('middps').style.display='none';de('middps').style.visibility='vis
 
 <div id="header_wrapper">
  <div id="header">
-<li id="sitename"><marquee><a href="http://MosquedaCordova">El Bunker</a></marquee></li>
+<li id="sitename"><marquee><a href="http://MosquedaCordova">El Bunkercito</a></marquee></li>
 <form action="index.php" style="width: 50%;" method="post" onsubmit="if(form_submitted<1 && this.username.value.trim().length>2){this.action='account.php';form_submitted=1;return true}else{return false}">
  <li>Nombre de Usuario<br>
 <input type="text" style="background-color: white;" name="username" maxlength="16" class="holder_text x_accent_bb svg_user" placeholder="<?php print $lang['guest'];?>" value="<?php if(isset($_GET['passrequired_uname'])){print $_GET['passrequired_uname'];}?>" />
@@ -139,22 +143,22 @@ Password<br><input type="password" style="background-color: white;" name="passwo
 <div id="div2">
 <h1><?php print $lang['register'];?></h1>
 <p> </p>
-<form action="index.php" method="post" autocomplete="off" onsubmit="return check_form()">
+<form action="index.php" method="post" autocomplete="off" onsubmit="return check_form()" id="formularioRegister">
 
 <div class="holder"><?php print $settings['tips_reg'];?></div>
 
-<li><input type="text" style="background-color: #38a2ffa3;" name="regname" maxlength="16" class="holder_text x_accent_bb svg_user" placeholder="<?php print $lang['username'];?>" onfocus="input_style_back(this,'svg_user')" onblur="check_available(this.value)" /></li>
+<li><input type="text" id="usuario" style="background-color: #38a2ffa3;" name="regname" maxlength="16" class="holder_text x_accent_bb svg_user" placeholder="<?php print $lang['username'];?>" onfocus="input_style_back(this,'svg_user')" onblur="check_available(this.value)" /></li>
 
-<li><input type="text" style="background-color: #38a2ffa3;" name="email" maxlength="64" class="holder_text x_accent_bb svg_mail" placeholder="<?php print $lang['email'];?>" onfocus="input_style_back(this,'svg_mail')" /></li>
+<li><input type="text" id="email" style="background-color: #38a2ffa3;" name="email" maxlength="64" class="holder_text x_accent_bb svg_mail" placeholder="<?php print $lang['email'];?>" onfocus="input_style_back(this,'svg_mail')" /></li>
 
-<li><input type="password" style="background-color: #38a2ffa3;" name="password" maxlength="32" class="holder_text x_accent_bb svg_pass" placeholder="<?php print $lang['password'];?>" onfocus="input_style_back(this,'svg_pass')" /></li>
+<li><input type="password" id="password" style="background-color: #38a2ffa3;" name="password" maxlength="32" class="holder_text x_accent_bb svg_pass" placeholder="<?php print $lang['password'];?>" onfocus="input_style_back(this,'svg_pass')" /></li>
 
-<li><input type="password" style="background-color: #38a2ffa3;" name="repasswd" maxlength="32" class="holder_text x_accent_bb svg_pass" placeholder="<?php print $lang['retype'];?>" onfocus="input_style_back(this,'svg_pass')" /> </li>
+<li><input type="password" id="passwordRepetir" style="background-color: #38a2ffa3;" name="repasswd" maxlength="32" class="holder_text x_accent_bb svg_pass" placeholder="<?php print $lang['retype'];?>" onfocus="input_style_back(this,'svg_pass')" /> </li>
 <li>
-<input type="text" name="question" style="background-color: #38a2ffa3;" maxlength="128" class="holder_text x_accent_bb svg_psqn" placeholder="<?php print $lang['fpr_question'];?>" onfocus="input_style_back(this,'svg_psqn')" />
+<input type="text" name="question" id="question" style="background-color: #38a2ffa3;" maxlength="128" class="holder_text x_accent_bb svg_psqn" placeholder="<?php print $lang['fpr_question'];?>" onfocus="input_style_back(this,'svg_psqn')" />
 </li>
 
-<li><input type="text" name="answer" style="background-color: #38a2ffa3;" maxlength="128" class="holder_text x_accent_bb svg_psar" placeholder="<?php print $lang['fpr_answer'];?>" onfocus="input_style_back(this,'svg_psar')" /></li>
+<li><input type="text" name="answer" id="answer" style="background-color: #38a2ffa3;" maxlength="128" class="holder_text x_accent_bb svg_psar" placeholder="<?php print $lang['fpr_answer'];?>" onfocus="input_style_back(this,'svg_psar')" /></li>
 
 <li id="terms">By clicking Create an account, you agree to our <a href="">Terms</a> and that <br>you have read our <a href="">Data Policy</a>, including our <a href="">Cookie Use</a>.</li>
 <li><input type="submit" class="x_bcolor_z holder_button  x_all_rounded" style="width:100%" value="<?php print $lang['register'];?>" /></li>

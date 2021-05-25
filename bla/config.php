@@ -8,13 +8,13 @@
 
 $dbss=array();
 $dbss['host']='localhost';      // Database host (in most cases 'localhost', on Windows systems - use '127.0.0.1' instead of 'localhost' to avoid a php/ipv6 bug)
-$dbss['user']='root';      // Database user
-$dbss['pass']='';      // Database password
-$dbss['name']='tuchat';      // Database name. Note that the installation script cannot create a database for you!
+$dbss['user']='test';      // Database user
+$dbss['pass']='heavy';      // Database password
+$dbss['name']='tu-chat';      // Database name. Note that the installation script cannot create a database for you!
 $dbss['sock']='';      // Database socket
 $dbss['prfx']='blabax';      // Table prefix for chat tables: blab, blabws, blabax, blabwspro
 
-$dbss['sprf']='blabax';      /* Table prefix for shared chat tables (this should be the table prefix of the 'master' channel). 
+$dbss['sprf']='blabax';      /* Table prefix for shared chat tables (this should be the table prefix of the 'master' channel).
                                 Affects paintings, avatars, files, mottos.
 
                                 BE CAREFUL WITH THIS! GUEST ACCESS MUST BE DISABLED IN ALL CHANNELS!
@@ -30,7 +30,7 @@ $norealips=0;                // 0 or 1; if 1 the ip addresses of the users in th
 $supersalt=1;                // 0 or 1; add additional individual salt when creating cookie hash; will throw out the user from all other devices when changing the password
 $ping_period=5;              // AJAX ping period in sec (BlaB!AX and BlaB!AX Pro only! 5-20 seconds)
 $ping_multpl=5;              // User is considered offline on X missed pings (BlaB!AX and BlaB!AX Pro only! 5-20)
-$cookieparam='SameSite=Lax;';// additional cookie parameters: SameSite=Lax; HttpOnly; Secure; on change you may have to change cookie names below 
+$cookieparam='SameSite=Lax;';// additional cookie parameters: SameSite=Lax; HttpOnly; Secure; on change you may have to change cookie names below
 
 
 /* BLABWS-SERVER / BLABWS-SERVER-PRO START/STOP/CHECK WITH SHELL_EXEC */
@@ -63,7 +63,7 @@ $storage_ignored = 'blabax_ignored';   // where to store ignored users
 $storage_predefm = 'blabax_predefm';   // where to store predefined messages
 
 
-/* PATHS/FILES - in case you are running multiple instances these files/paths can be shared (Pro only!): 
+/* PATHS/FILES - in case you are running multiple instances these files/paths can be shared (Pro only!):
    global JS file, global CSS file, emoticon codes, emoticons CSS file, avatars directory, stickers directory */
 
 $xfile_cssstyle = 'blabaxpro.css'; // global CSS file;     default: blabaxpro.css
@@ -79,7 +79,7 @@ $xpath_at_dir = 'attachments';  // attachments directory, no trailing slashes;  
 
 /* User IP variable - $ipaddr
    This is not a thing to play with unless you understand what you are doing - HTTP headers can be spoofed!
-   The whole system considers the IP address of the user to be $_SERVER['REMOTE_ADDR'] 
+   The whole system considers the IP address of the user to be $_SERVER['REMOTE_ADDR']
    In case you have a reverse proxy, cloudflare etc you can overwrite this and set a global IP variable here. */
 
 // if(isset($_SERVER['HTTP_X_REAL_IP'])){$ipaddr=$_SERVER['HTTP_X_REAL_IP'];} // reverse proxy
@@ -88,7 +88,7 @@ $xpath_at_dir = 'attachments';  // attachments directory, no trailing slashes;  
 
 $ousr_by_group=0; // Pro only! Order online users by groupID: 1 -> 99 - requires understanding and proper group IDs set in advance
 
- 
+
 /* ffmpeg; ffmpeg installed/operational is required!  */
 $ffmpeg_cnvrt=0; // convert voice/video messages to default mp4; NOT RECOMMENDED!
 $ffmpeg_thumb=0; // framerate: 1-5; 0 = off; create thumbnails for audio/video & voice/video messages with ffmpeg
