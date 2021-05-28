@@ -11,26 +11,51 @@ var input;
 var AudioContext = window.AudioContext || window.webkitAudioContext;
 var audioContext = new AudioContext;
 //new audio context to help us record
-window.onload = function(){
+// window.onload = function(){
 
-    var recordButton = document.getElementById("recordButton");
-    var stopButton = document.getElementById("stopButton");
-    var pauseButton = document.getElementById("pauseButton");
-    //add events to those 3 buttons
-}
+//     // var recordButton = document.getElementById("bottom_bmore");
+//     // var stopButton = document.getElementById("stopButton");
+//     // var pauseButton = document.getElementById("bottom_bmore");
+//     //add events to those 3 buttons
+//     // console.log(stopButton)
 
-recordButton.addEventListener("click", startRecording);
-stopButton.addEventListener("click", stopRecording);
-pauseButton.addEventListener("click", pauseRecording);
+//   }
+
+// recordButton.addEventListener("click", startRecording);
+// stopButton.addEventListener("click", stopRecording);
+// pauseButton.addEventListener("click", pauseRecording);
 
 function startRecording() {
 
-    document.getElementById("text_input").className += " ocultar";
+    console.log("recordButton clicked sdsdsd");
+
+    // esconder el campo de texto y muestra el grabando
+    document.getElementById("text_input").className += " ocultar"
 
     if (document.getElementById("grabando").className == "null ocultar") {
 
         document.getElementById("grabando").classList.remove("ocultar")
+
+    }else{
+
+        document.getElementById("grabando").className += " ocultar"
+
     }
+
+    //cambiar icono y opcion a pausar
+
+    if (document.getElementById("bottom_bmore").className == "x_bcolor_z x_left_rounded svg_aonn") {
+
+        document.getElementById("bottom_bmore").classList.remove("svg_aonn")
+        document.getElementById("bottom_bmore").className += " svg_pausa"
+
+    }else{
+
+        pauseRecording()
+        document.getElementById("bottom_bmore").classList.remove("svg_pausa")
+        document.getElementById("bottom_bmore").className += " svg_aonn"
+    }
+
     /* Simple constraints object, for more advanced audio features see
 
     https://addpipe.com/blog/audio-constraints-getusermedia/ */
@@ -41,9 +66,9 @@ function startRecording() {
     }
     /* Disable the record button until we get a success or fail from getUserMedia() */
 
-    recordButton.disabled = true;
-    stopButton.disabled = false;
-    pauseButton.disabled = false
+    // recordButton.disabled = true;
+    // stopButton.disabled = false;
+    // pauseButton.disabled = false
 
     /* We're using the standard promise based getUserMedia()
 
@@ -64,9 +89,9 @@ function startRecording() {
         console.log("Recording started");
     }).catch(function(err) {
         //enable the record button if getUserMedia() fails
-        recordButton.disabled = false;
-        stopButton.disabled = true;
-        pauseButton.disabled = true
+        // recordButton.disabled = false;
+        // stopButton.disabled = true;
+        // pauseButton.disabled = true
     });
 }
 
@@ -76,11 +101,11 @@ function pauseRecording() {
     if (rec.recording) {
         //pause
         rec.stop();
-        pauseButton.innerHTML = "Resume";
+        // pauseButton.innerHTML = "Resume";
     } else {
         //resume
         rec.record()
-        pauseButton.innerHTML = "Pause";
+        // pauseButton.innerHTML = "Pause";
     }
 }
 
@@ -91,13 +116,23 @@ function stopRecording() {
     elemento.classList.remove("sfade1");
     console.log('borrando clase del bottom')
 
+    // velover el icono de grabar
+
+    if (document.getElementById("bottom_bmore").className == "x_bcolor_z x_left_rounded svg_pausa") {
+
+        document.getElementById("bottom_bmore").classList.remove("svg_pausa")
+        document.getElementById("bottom_bmore").className += " svg_aonn"
+
+    }
+
+
     console.log("stopButton clicked");
     //disable the stop button, enable the record too allow for new recordings
-    stopButton.disabled = true;
-    recordButton.disabled = false;
-    pauseButton.disabled = true;
+    // stopButton.disabled = true;
+    // recordButton.disabled = false;
+    // pauseButton.disabled = true;
     //reset button just in case the recording is stopped while paused
-    pauseButton.innerHTML = "Pause";
+    // pauseButton.innerHTML = "Pause";
     //tell the recorder to stop the recording
     rec.stop(); //stop microphone access
     gumStream.getAudioTracks()[0].stop();
@@ -111,20 +146,17 @@ function createDownloadLink(blob) {
     var url = URL.createObjectURL(blob);
     var au = document.createElement('audio');
     var so = document.createElement('source');
-    var li = document.createElement('li');
     var link = document.createElement('a');
     //add controls to the <audio> element
     au.controls = true;
     au.appendChild(so)
-    so.src = url;
-    so.type = "audio/mpeg"
     //link the a element to the blob
     link.href = url;
-    link.download = new Date().toISOString() + '.mp3';
+    link.download = new Date().toISOString() + '.wav';
     link.innerHTML = link.download;
+    so.src = link.download;
+    so.type="audio/wav"
     //add the new audio and a elements to the li element
-    li.appendChild(au);
-    li.appendChild(link);
     //add the li element to the ordered list
     recordingsList.appendChild(au);
     let elemento = document.getElementById("bottom_dmore")

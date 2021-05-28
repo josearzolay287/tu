@@ -17,7 +17,7 @@ function de(x){return document.getElementById(x)}
 
 // ----------
 
-function acntx(){usrinteaction=1;rcntx()} 
+function acntx(){usrinteaction=1;rcntx()}
 
 function rcntx(){
 window.removeEventListener('click',acntx)
@@ -54,10 +54,10 @@ if(offset>0){de('middps').style.marginTop=offset+'px'}}
 
 // ----------
 
-function shoop(x,y,z){ 
+function shoop(x,y,z){
 // z = time; y = scaleFactor: 1,2,3 etc
 obj2unhoop=x; y=1-y*0.1
-obj2unhoop.style.transform='scale('+y+','+y+')' 
+obj2unhoop.style.transform='scale('+y+','+y+')'
 setTimeout("obj2unhoop.style.transform='scale(1,1)';obj2unhoop.style.transform='rotate(0deg)'",z)}
 
 // ----------
@@ -127,7 +127,7 @@ rcv=JSON.parse(rcv); if(!rcv[4]){return}
 if(rcv[4]<=ajnm){return}else{ajnm=rcv[4]}
 ohash=rcv[2]; dbid=rcv[3]; sound=0
 if(rcv[5]){console.log(rcv[5])}
-if(rcv[0]){usr_online=rcv[0];online_construct();sound=1} 
+if(rcv[0]){usr_online=rcv[0];online_construct();sound=1}
 rmsg=rcv[1];for(m in rmsg){msg_display(rmsg[m])}
 play_s(sound)
 }
@@ -162,7 +162,13 @@ msg['text']=inp.value
 msg['room']=current_room
 msg=JSON.stringify(msg)
 
-if(lof.style.display=='block'){if(srv_usr_id==0){hsp.style.display='none'} obj2hoop=false; lof.style.display='none'}
+if(lof.style.display=='block'){
+	if(srv_usr_id==0){
+		hsp.style.display='none'
+	}
+	obj2hoop=false;
+	lof.style.display='none'
+}
 
 if(chatflow<1){ax_ping(msg)
 if(ext_usr_id>0 && pm_reg>0){pm_reorder(ext_usr_id,active_usrname)}
@@ -272,7 +278,7 @@ return x}
 // ----------
 
 function msg_display(x){
-msg2add='';  mdd='m'+mdc; mdc+=1; 
+msg2add='';  mdd='m'+mdc; mdc+=1;
 
 time=x['time']
 clas=x['color'].toString()
@@ -345,7 +351,7 @@ scrolllog()}
 //-----------
 
 function show2user(x,y){tmpo=true;
-hide_user();hsp.style.display='none'; 
+hide_user();hsp.style.display='none';
 if(lof.style.display=='block'){lof.style.display='none'}
 for(i in usr_online){if(usr_online[i][0]==x){show_user(i,parseInt(usr_online[i][0]),usr_online[i][1],usr_online[i][2]);tmpo=false;break}}
 if(tmpo && typeof y=='object'){if(y.children.length>0){shoop(y,1,200)}else{y.style.filter='grayscale(100%)'}}return tmpo}
@@ -382,7 +388,7 @@ uinonlinebg='x_accent_bg x_top_rounded'
 
 for(i in uo){
 
-// bg pchat online/offline	
+// bg pchat online/offline
 if(ext_usr_id==uo[i][0]){uinonlinebg='x_bcolor_x x_top_rounded'}
 
 ntfy='status'+uo[i][3]
@@ -399,7 +405,8 @@ linethrough=''; // strike ignored users
 for(j in ignored_users){if(uo[i][2]==ignored_users[j]){linethrough=' style="text-decoration:line-through;opacity:0.2;opacity:0.2"';}}
 
 sortbyname=uo[i][2].toLowerCase()
-onl_str.push('<!-- '+sortbyname+' --><div onclick="show_user('+i+','+uo[i][0]+','+uo[i][1]+',\''+uo[i][2]+'\')" class="single_online_user shorten pointer"><img src="'+atob(uo[i][4])+'" class="x_circle" alt="" /><b class="x_bcolor_x"><i id="e'+uo[i][0]+'" class="'+ntfy+'"></i></b><span'+linethrough+' class="g'+uo[i][1]+'">'+uo[i][2]+'</span></div>')
+onl_str.push(
+	'<!-- '+sortbyname+' --><div onclick="show_user('+i+','+uo[i][0]+','+uo[i][1]+',\''+uo[i][2]+'\')" class="single_online_user shorten pointer"><img src="'+atob(uo[i][4])+'" class="x_circle" alt="" /><b class="x_bcolor_x"><i id="e'+uo[i][0]+'" class="'+ntfy+'"></i></b><span'+linethrough+' class="g'+uo[i][1]+'">'+uo[i][2]+'</span></div><hr>')
 
 // append pchat div
 p=document.createElement('div')
@@ -418,36 +425,50 @@ onl.innerHTML=onl_str}
 
 function show_user(a,b,c,d){
 
-pmarrnotify_rem(b);
-if(pmarrnotify.length<1)(hidepm_notify())
+	pmarrnotify_rem(b);
+	if(pmarrnotify.length<1)(hidepm_notify())
 
-if(dtitle){top.document.title=dtitle}
-hsp.style.display='block'
-uin.style.display='block'
-de('user_buttons').style.display='block'
+	if(dtitle){top.document.title=dtitle}
+	hsp.style.display='block'
+	uin.style.display='block'
+	de('user_buttons').style.display='block'
 
-tcss=de('e'+b).className
-tcss=tcss.replace('pchat_notify_on','').replace('pchat_notify','').trim()
-de('e'+b).className=tcss+' pchat_notify'
+	tcss=de('e'+b).className
+	tcss=tcss.replace('pchat_notify_on','').replace('pchat_notify','').trim()
+	de('e'+b).className=tcss+' pchat_notify'
 
-m=de('p'+b)
-m.style.display='block'; m.scrollTop=m.scrollHeight
-srv_usr_id=a; ext_usr_id=b; active_usrname=d
-ignore_init()
-inp.placeholder=' @'+d
-unn.innerHTML=d
-uin.className='x_bcolor_x x_top_rounded'
+	m=de('p'+b)
+	m.style.display='block'; m.scrollTop=m.scrollHeight
+	srv_usr_id=a; ext_usr_id=b; active_usrname=d
+	ignore_init()
+	inp.placeholder=' @'+d
+	unn.innerHTML=d
+	uin.className='x_bcolor_x x_top_rounded'
 
-if(typeof uxtra_expire[ext_usr_id]=='number' && uxtra_expire[ext_usr_id]>Math.floor(Date.now()/1000)){uxtra_init(ext_usr_id)}
-else{
-de('user_avatar').style.backgroundImage='none'
-de('user_motto').innerHTML=''
-uxtra_snd()}
+	if(
+		typeof uxtra_expire[ext_usr_id]=='number' &&
+		uxtra_expire[ext_usr_id]>Math.floor(Date.now()/1000)
+		){
+		uxtra_init(ext_usr_id)
+	}else{
+		de('user_avatar').style.backgroundImage='none'
+		de('user_motto').innerHTML=''
+		uxtra_snd()
+	}
 
-if(phistoryhidebtn.indexOf(ext_usr_id)==-1){phistoryhidebtn.push(ext_usr_id);m.innerHTML=privhistbutton+m.innerHTML;}
-if(usr_online[a][3]>4 || current_status>4){inp.placeholder=' '+lang['fnopm'];inp.value='';inp.readOnly=true;}
-if(stealth>0){inp.placeholder=' '+lang['stlth'];inp.value='';inp.readOnly=true}
-rmb_txt('u_show'); inp_focus()}
+	if(phistoryhidebtn.indexOf(ext_usr_id)==-1){
+		phistoryhidebtn.push(ext_usr_id);
+		m.innerHTML=privhistbutton+m.innerHTML;
+	}
+	if(usr_online[a][3]>4 || current_status>4){
+		inp.placeholder=' '+lang['fnopm'];
+		inp.value='';inp.readOnly=true;
+	}
+	if(stealth>0){
+		inp.placeholder=' '+lang['stlth'];inp.value='';inp.readOnly=true
+	}
+	rmb_txt('u_show'); inp_focus()
+}
 
 // ----------
 
@@ -802,9 +823,26 @@ if(m==38){log.scrollTop-=15} if(m==40){log.scrollTop+=15}
 if(autoscroll<1 && rbotto()){hoop(aus,0);autoscroll=1;return}
 if(autoscroll>0 && !rbotto()){hoop(aus,1);autoscroll=0}}
 
-function m2down(x){if(typeof x.preventDefault=='function'){x.preventDefault();dragdown=true;dragypos=x.pageY}}
-function m2move(x,y){if(dragdown==true && dragypos){x.scrollTop+=((dragypos-y.pageY)/6);}}
-function w2move(e){if(parseInt(e.deltaY)>0){z=15}else{z=-15} onl.scrollTop+=z}
+function m2down(x){
+	if(typeof x.preventDefault=='function'){
+		x.preventDefault();
+		dragdown=true;
+		dragypos=x.pageY
+	}
+}
+function m2move(x,y){
+	if(dragdown==true && dragypos){
+		x.scrollTop+=((dragypos-y.pageY)/6);
+	}
+}
+function w2move(e){
+	if(parseInt(e.deltaY)>0){
+		z=15
+	}else{
+		z=-15
+	}
+	onl.scrollTop+=z
+}
 
 function rbotto(){
 if(parseInt(log.scrollHeight-log.scrollTop)<=log.clientHeight){return true}
@@ -911,7 +949,7 @@ msgft=msg_template.replace('{AVATAR}',h_avat).replace('{TIME}',h_time).replace('
 msgfromdb[h_id]=msgft
 }
 
-msgfromdb=msgfromdb.join(' '); 
+msgfromdb=msgfromdb.join(' ');
 if(msgfromdb.length<1){msgfromdb=lang['nomsg'];}
 return msgfromdb
 

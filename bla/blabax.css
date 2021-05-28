@@ -14,7 +14,26 @@ input,select,textarea{box-sizing:border-box;border-width:0;border-radius:0;font-
 .online_title1{position:fixed;top:40px;right:1%;height:42px;min-width:180px;max-width:260px;width:20%}
 .online_title2{position:fixed;top:40px;right:1%;height:42px;min-width:180px;max-width:260px;width:20%;max-width:40%}
 .online_title_text{margin:12px;font-size:90%;line-height:20px;font-weight:bold;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none}
-.online_title_close{margin:5px;float:right;width:32px;height:32px;cursor:pointer;background-size:80%;background-repeat:no-repeat;background-position:center center}
+.online_title_close{
+	margin:5px;
+	float:right;
+	width:32px;
+	height:32px;
+	cursor:pointer;
+	background-size:80%;
+	background-repeat:no-repeat;
+	background-position:center center;
+}
+.online_title_dinero{
+	margin:5px;
+	float:right;
+	width:32px;
+	height:32px;
+	cursor:pointer;
+	background-size:80%;
+	background-repeat:no-repeat;
+	background-position:center center;
+}
 .online_users1{position:fixed;top:80px;bottom:55px;right:1%;min-width:180px;max-width:260px;width:20%;overflow:hidden;padding-top:8px}
 .online_users2{position:absolute;top:80px;bottom:55px;right:1%;min-width:180px;max-width:260px;width:20%;max-width:40%;overflow:hidden;padding-top:15px}
 .single_online_user{font-weight:bold;margin:5px;margin-left:15px;line-height:35px;white-space:nowrap}
@@ -35,11 +54,38 @@ input,select,textarea{box-sizing:border-box;border-width:0;border-radius:0;font-
 #autoscroll{position:fixed;bottom:50px;left:1%;width:42px;height:42px;cursor:pointer;background-size:75%;background-repeat:no-repeat;background-position:center center;display:none}
 #autoscroll img{margin:8px;width:26px;height:26px}
 
-#user_info{position:fixed;top:40px;right:1%;width:450px;height:55px;max-width:80%;min-width:200px;font-size:90%;padding:10px;font-weight:bold;overflow:hidden;display:none}
+#user_info{
+	/*position:fixed;
+	top:40px;
+	right:1%;
+	width:450px;
+	height:55px;
+	max-width:80%;
+	min-width:200px;
+	font-size:90%;
+	padding:10px;
+	font-weight:bold;
+	overflow:hidden;
+	display:none*/
+}
 .user_butt{position:fixed;top:45px;right:1%;margin:8px 5px 0 0;padding:10px;display:none}
 .user_butt span{width:32px;height:32px;display:inline-block;background-position:center;background-size:80%;background-repeat:no-repeat}
-#user_avatar{float:left;width:60px;height:60px;background-size:100%;background-repeat:no-repeat;background-position:center}
-#user_motto{font-weight:normal;display:inline-block;cursor:help;width:160px;line-height:90%}
+#user_avatar{
+	float:left;
+	width:60px;
+	height:60px;
+	background-size:100%;
+	background-repeat:no-repeat;
+	background-position:center
+}
+#user_motto{
+	font-weight:normal;
+	display:inline-block;
+	cursor:help;
+	width:160px;
+	line-height:90%;
+	margin-bottom:10px;
+}
 .one2chat{position:fixed;top:116px;right:1%;bottom:55px;width:450px;max-width:80%;min-width:200px;padding:10px;overflow:auto;display:none;background-position:center;background-size:70%;background-repeat:no-repeat}
 .pchat_notify{width:8px;height:8px;border-radius:100%;display:inline-block;line-height:8px;margin-right:3px}
 .pchat_notify_on{width:8px;height:8px;border-radius:100%;display:inline-block;line-height:8px;margin-right:3px;animation:blinker 2s linear infinite}
@@ -61,8 +107,25 @@ input,select,textarea{box-sizing:border-box;border-width:0;border-radius:0;font-
 #top2unread{position:fixed;left:54px;top:11px;width:8px;height:8px;border-radius:100%;cursor:pointer;display:none}
 
 #bottom_smile{position:fixed;left:5px; bottom:5px;width:50px;height:40px;background-repeat:no-repeat;background-size:60%;background-position:center;cursor:pointer}
-#bottom_middle{position:fixed;left:55px;right:55px;bottom:5px;height:40px;text-align:center}
-#bottom_middle input{width:100%;height:100%;padding:0 5px 0 5px}
+#bottom_middle{
+	position:fixed;
+	left:55px;
+	right:55px;
+	bottom:5px;
+	height:40px;
+	text-align:center
+}
+#bottom_middle input{
+	box-sizing: content-box;
+	width:94%;
+	border-radius:15px;
+	margin-top:5px;
+	margin-bottom:5px;
+  margin-left:23px;
+  background-color: #dfe;
+	height:70%;
+	padding:0 5px 0 5px;
+}
 #bottom_send{position:fixed;right:5px;bottom:5px;width:50px;height:40px;text-align:right;background-repeat:no-repeat;background-size:70%;background-position:center;cursor:pointer}
 
 #hidescreen_tran{position:fixed;top:0;left:0;bottom:0;right:0;opacity:0.8;display:none}
@@ -233,6 +296,7 @@ input[type=submit]{opacity:0.8} input[type=submit]:hover{opacity:1}
 
 .top_button:hover{background-size:105%}
 .online_title_close:hover{background-size:75%}
+.online_title_dinero:hover{background-size:75%}
 #online_button:hover{background-size:75%}
 #user_buttons span:hover{background-size:75%}
 #kick_ban span:hover{background-size:75%}

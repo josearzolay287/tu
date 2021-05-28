@@ -40,10 +40,6 @@
     text-align:center;
   }
 
-  audio{
-    margin:20px;
-  }
-
   p{
     margin:10px;
   }
@@ -108,7 +104,6 @@
   .svg_aonn {
     background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMiIgaGVpZ2h0PSIzMiIgdmlld0JveD0iMCAwIDMyIDMyIj48cGF0aCBkPSJNMzIgMTZhMTYgMTYgMCAwIDEtMTYgMTZBMTYgMTYgMCAwIDEgMCAxNiAxNiAxNiAwIDAgMSAxNiAwYTE2IDE2IDAgMCAxIDE2IDE2eiIgZmlsbD0iI2YwNiIvPjxwYXRoIGQ9Ik0xNiAxOC41YzEuNjYgMCAyLjk5LTEuMzQgMi45OS0zbC4wMS02YzAtMS42Ni0xLjM0LTMtMy0zcy0zIDEuMzQtMyAzdjZjMCAxLjY2IDEuMzQgMyAzIDN6bTUuMy0zYzAgMy0yLjU0IDUuMS01LjMgNS4xcy01LjMtMi4xLTUuMy01LjFIOWMwIDMuNDEgMi43MiA2LjIzIDYgNi43MnYzLjI4aDJ2LTMuMjhjMy4yOC0uNDggNi0zLjMgNi02LjcyeiIgZmlsbD0iI2ZmZiIvPjwvc3ZnPg==);
   }
-  audio{display:none}
   .audioContainer{
     height:50px;width:250px;
     border:solid 1px #dedede;
@@ -126,7 +121,7 @@
     position: absolute;
     float:left;
     width:52px;
-    height:48px;;
+    height:48px;
   }
   .audioTime
   {
@@ -143,33 +138,29 @@
     width: 147px;
     margin-left: 53px;
   }
-  .audioPlay{
-    background:url('../images/play.png') no-repeat
-
-  }
   .ocultar{
     display:none;
   }
-  .audioPause{
-    background:url('../images/pause.png') no-repeat
+
+  .dinero{
+    margin-left: 32px;
+    display:inline-block;
   }
 
-  .redondeado-input {
-    border-radius: 15px;
-    margin-left:23px;
-   background-color: #dfe;
+  .svg_dinero{
+     background-image: url(pila_monedas_oro.png);
   }
-
-  .caja-padin{
-    padding: 5px;
-  }
-
 
 </style>
 
 <script type="text/JavaScript">
 
   function changeClass(){
+
+    if (document.getElementById("bottom_bmore").className == "x_bcolor_z x_left_rounded svg_aonn") {
+      return
+    }
+
         // code examples from above
     if (document.getElementById("bottom_dmore").className == 'null sfade1') {
       let elemento = document.getElementById("bottom_dmore")
@@ -322,8 +313,10 @@
 
   <div id="online_title">
     <div onclick="display_layout_frs(0)" class="online_title_close svg_clos"></div>
+     <div class="online_title_close svg_dinero"></div>
     <div class="online_title_text">
       <?php print $lang['online'];?>
+      <div class="dinero">10</div>
       </div>
   </div>
 
@@ -349,7 +342,7 @@
   <div id="user_info" class="x_bcolor_x x_top_rounded">
     <div id="user_avatar" class="pointer x_circle" onclick="ext_profile()"></div>
     <div style="float:left;margin-left:5px;margin-top:10px">
-      <div id="user_name" style="font-size:14px;cursor:pointer" onclick="ext_profile()">&nbsp;</div>
+      <div id="user_name" style="font-size:14px;cursor:pointer;" onclick="ext_profile()">&nbsp;</div>
       <small id="user_motto"></small>
     </div>
   </div>
@@ -441,11 +434,19 @@
 
   <form action="?do" onsubmit="msg_send();return false" autocomplete="off">
 
-    <div id="bottom_middle" class="x_bcolor_z caja-padin">
+    <div id="bottom_middle" class="x_bcolor_z">
 
-      <input type="text" id="text_input" spellcheck="true" maxlength="320" class="redondeado-input" placeholder=" <?php print $lang['message'];?> "/>
-       <ol id="recordingsList" class="null ocultar"></ol>
-        <h5 id="grabando" class="null">Recordings</h5>
+      <input
+        type="text"
+        id="text_input"
+        spellcheck="true"
+        maxlength="320"
+        placeholder=" <?php print $lang['message'];?> "
+      />
+
+      <div id="recordingsList" class="null ocultar"></div>
+      <h5 id="grabando" class="null ocultar">Grabando</h5>
+
     </div>
 
     <div
@@ -467,14 +468,14 @@
     ">
     </div>
 
-    <div id="bottom_bmore" style="margin-left:6px;" title="Voice message - Video message - Doodle - Upload" class="x_bcolor_z x_left_rounded svg_avbt" onclick="changeClass()">
+    <div id="bottom_bmore" style="margin-left:6px;" title="Voice message - Video message - Doodle - Upload" class="x_bcolor_z x_left_rounded svg_aonn" onclick="startRecording(); changeClass()">
     </div>
 
     <div id="bottom_dmore" class="null">
 
       <div style="width:5px;cursor:default"></div>
-      <div id="recordButton" title="Voice message" class="svg_aonn" onclick="startRecording()"></div>
-      <div id="pauseButton" title="Voice message" class="svg_pausa" onclick="pauseRecording()"></div>
+     <!--  <div id="recordButton" title="Voice message" class="svg_aonn" onclick="startRecording()"></div> -->
+ <!--      <div id="pauseButton" title="Voice message" class="svg_pausa" onclick="pauseRecording()"></div> -->
       <div id="stopButton" title="Voice message" class="svg_detener" onclick="stopRecording()"></div>
 
 
@@ -583,7 +584,7 @@
 
     <div id="panel_settings" style="display:none">
 
-      <div class="panel_title x_accent_bb" style="text-align:left">
+      <div class="panel_title x_accent_bb" style="text-align:center">
         <?php
           print $lang['settings'];
         ?>
@@ -711,7 +712,7 @@
     <div id="panel_profile" style="display:none">
       <div
         class="panel_title x_accent_bb"
-        style="text-align:left">
+        style="text-align:center">
           <?php
             print $lang['profile'];
             ?>
@@ -903,7 +904,7 @@
     </div>
 
     <div id="panel_rooms" style="display:none">
-      <div class="panel_title x_accent_bb" style="text-align:left">Select Room</div>
+      <div class="panel_title x_accent_bb" style="text-align:center">Select Room</div>
 
       <?php
 
@@ -955,7 +956,7 @@
 
     <div id="panel_pmlog" style="display:none">
 
-      <div class="panel_title x_accent_bb" style="text-align:left"><?php print $lang['pmlog'];?></div>
+      <div class="panel_title x_accent_bb" style="text-align:center"><?php print $lang['pmlog'];?></div>
 
       <div
         class="panel_title x_accent_bb"
@@ -987,7 +988,7 @@
 
     <div id="panel_avatar" style="display:none">
 
-      <div class="panel_title x_accent_bb" style="text-align:left">
+      <div class="panel_title x_accent_bb" style="text-align:center">
         <?php
           print $lang['avatar'];
         ?> &amp;
@@ -1071,7 +1072,7 @@
 
       <div id="panel_ctab" style="display:none">
 
-        <div class="panel_title x_accent_bb" style="text-align:left">
+        <div class="panel_title x_accent_bb" style="text-align:center">
           <?php
             $x=htmlspecialchars($settings['ctab_title']);
             print $x;

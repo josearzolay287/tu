@@ -141,7 +141,7 @@ Password<br><input type="password" style="background-color: white;" name="passwo
 </div>
 
 <div id="div2">
-<h1><?php print $lang['register'];?></h1>
+<h1 style="text-align:center" ><?php print $lang['register'];?></h1>
 <p> </p>
 <form action="index.php" method="post" autocomplete="off" onsubmit="return check_form()" id="formularioRegister">
 
@@ -160,7 +160,7 @@ Password<br><input type="password" style="background-color: white;" name="passwo
 
 <li><input type="text" name="answer" id="answer" style="background-color: #38a2ffa3;" maxlength="128" class="holder_text x_accent_bb svg_psar" placeholder="<?php print $lang['fpr_answer'];?>" onfocus="input_style_back(this,'svg_psar')" /></li>
 
-<li id="terms">By clicking Create an account, you agree to our <a href="">Terms</a> and that <br>you have read our <a href="">Data Policy</a>, including our <a href="">Cookie Use</a>.</li>
+<li id="terms">Al hacer clic en Crear una cuenta, aceptas nuestras <a href="">Condiciones</a> y también <br> Has leído nuestra <a href="">Política de datos</a>, Incluyendo nuestra <a href=""> Uso de cookies </a>.</li>
 <li><input type="submit" class="x_bcolor_z holder_button  x_all_rounded" style="width:100%" value="<?php print $lang['register'];?>" /></li>
 
 </form>
