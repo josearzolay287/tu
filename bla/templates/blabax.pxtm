@@ -11,6 +11,8 @@
 <!--  Bootstrap -->
   <link rel="stylesheet" href="../assets/bootstrap/css/bootstrap.min.css">
 <!--  Bootstrap -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+
 
 <script src="recorderControl.js"></script>
 
@@ -149,6 +151,21 @@
 
   .svg_dinero{
      background-image: url(pila_monedas_oro.png);
+  }
+
+  .oneline_text{
+    position: absolute;
+    right: 350%;
+    text-align: justify;
+  }
+  .text_float{
+    overflow: hidden;
+    text-align:center;
+    min-height: 100px;
+    min-width: 100px;
+    max-height: 100px;
+    min-width: 100px;
+    word-wrap:break-word;
   }
 
 </style>
@@ -320,7 +337,9 @@
       </div>
   </div>
 
-  <div id="online_users" onmousedown="m2down(event)" onmousemove="m2move(this,event)"></div>
+  <div id="online_users" onmousedown="m2down(event)" onmousemove="m2move(this,event)">
+
+  </div>
 
   <div id="autoscroll" class="x_accent_bg x_circle svg_down" onclick="ascroll()"></div>
 

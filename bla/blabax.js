@@ -109,13 +109,17 @@ display_layout_rsz(); window.onresize=display_layout_rsz;ax_ping(0); ax_status(w
 // ----------
 
 function ax_ping(msg){
-if(typeof ax_intv == 'number'){clearInterval(ax_intv)}
-rq='mtoken='+encodeURIComponent(mtoken)+'&msg='+encodeURIComponent(msg)+'&tousername='+encodeURIComponent(active_usrname)+'&status='+current_status+'&ohash='+ohash+'&dbid='+dbid+'&zone='+zone+'&ampm='+time_ampm+'&ajnm='+ajnm
-ax_pulse=new XMLHttpRequest()
-ax_pulse.open('post','ax_ping.php')
-ax_pulse.setRequestHeader('Content-Type','application/x-www-form-urlencoded')
-ax_pulse.onreadystatechange=ax_ansr; ax_pulse.send(rq)
-ax_intv=setInterval('ax_ping(0)',ping_period*1000)}
+	if(typeof ax_intv == 'number'){
+		clearInterval(ax_intv)
+	}
+	rq='mtoken='+encodeURIComponent(mtoken)+'&msg='+encodeURIComponent(msg)+'&tousername='+encodeURIComponent(active_usrname)+'&status='+current_status+'&ohash='+ohash+'&dbid='+dbid+'&zone='+zone+'&ampm='+time_ampm+'&ajnm='+ajnm
+	console.log('rq:', rq)
+	ax_pulse=new XMLHttpRequest()
+	ax_pulse.open('post','ax_ping.php')
+	ax_pulse.setRequestHeader('Content-Type','application/x-www-form-urlencoded')
+	ax_pulse.onreadystatechange=ax_ansr; ax_pulse.send(rq)
+	ax_intv=setInterval('ax_ping(0)',ping_period*1000)
+}
 
 function ax_ansr(){
 if(ax_pulse.readyState==4 && ax_pulse.status==200){
@@ -223,12 +227,16 @@ if(i==index){stpp=1}} change_room(rcodes[rcodes.length-1])}
 // ----------
 
 function change_status(s,t){
-if(s!=current_status){
-current_status=s
-ax_ping(0)
-de('curr_status_ico').className='pchat_notify status'+s
-de('curr_status_nme').innerHTML=t
-} hst.style.display='none'; hoop(ons,0); inp_focus()}
+	if(s!=current_status){
+		current_status=s
+		ax_ping(0)
+		de('curr_status_ico').className='pchat_notify status'+s
+		de('curr_status_nme').innerHTML=t
+	}
+	hst.style.display='none';
+	hoop(ons,0);
+	inp_focus()
+}
 
 // ----------
 
@@ -379,47 +387,67 @@ de('unr'+current_room).innerHTML='&#9733;'
 
 function online_construct(){
 
-if(typeof Object.assign!='function'){uo=usr_online}
-else{uo=Object.assign(usr_online,fls_online)}
+	if(typeof Object.assign!='function'){
+		uo=usr_online
+	}
+	else{
+		uo=Object.assign(usr_online,fls_online)
+	}
 
-onl_str=new Array(); usr_length=0
-uinonlinebg='x_accent_bg x_top_rounded'
+	onl_str=new Array(); usr_length=0
+	uinonlinebg='x_accent_bg x_top_rounded'
 
 
-for(i in uo){
+	for(i in uo){
 
-// bg pchat online/offline
-if(ext_usr_id==uo[i][0]){uinonlinebg='x_bcolor_x x_top_rounded'}
+		// bg pchat online/offline
+		if(ext_usr_id==uo[i][0]){
+			uinonlinebg='x_bcolor_x x_top_rounded'
+		}
 
-ntfy='status'+uo[i][3]
+		ntfy='status'+uo[i][3]
 
-// avatars obj
-uxtra_avatars[uo[i][0]]=uo[i][4];
+		// avatars obj
+		uxtra_avatars[uo[i][0]]=uo[i][4];
 
-// preserve notifications
-ntsg=de('e'+uo[i][0])
-if(ntsg && ntsg.className.indexOf('pchat_notify_on')>-1){ntfy+=' pchat_notify_on';}
-else{ntfy+=' pchat_notify'}
+		// preserve notifications
+		ntsg=de('e'+uo[i][0])
+		if(ntsg && ntsg.className.indexOf('pchat_notify_on')>-1){
+			ntfy+=' pchat_notify_on';
+		}
+		else{
+			ntfy+=' pchat_notify'
+		}
 
-linethrough=''; // strike ignored users
-for(j in ignored_users){if(uo[i][2]==ignored_users[j]){linethrough=' style="text-decoration:line-through;opacity:0.2;opacity:0.2"';}}
+		linethrough=''; // strike ignored users
+		for(j in ignored_users){
+			if(uo[i][2]==ignored_users[j]){
+				linethrough=' style="text-decoration:line-through;opacity:0.2;opacity:0.2"';
+			}
+		}
 
-sortbyname=uo[i][2].toLowerCase()
-onl_str.push(
-	'<!-- '+sortbyname+' --><div onclick="show_user('+i+','+uo[i][0]+','+uo[i][1]+',\''+uo[i][2]+'\')" class="single_online_user shorten pointer"><img src="'+atob(uo[i][4])+'" class="x_circle" alt="" /><b class="x_bcolor_x"><i id="e'+uo[i][0]+'" class="'+ntfy+'"></i></b><span'+linethrough+' class="g'+uo[i][1]+'">'+uo[i][2]+'</span></div><hr>')
+		sortbyname=uo[i][2].toLowerCase()
+		console.log('clase:',uo[i][1])
+		console.log('sortbyname:',uo[i][1])
+		console.log('sortbyname:',uo[i][2])
+		onl_str.push(
+			'<!-- '+sortbyname+' --><div onclick="show_user('+i+','+uo[i][0]+','+uo[i][1]+',\''+uo[i][2]+'\')" class="single_online_user shorten pointer"><div class="div1_para_img"><img src="'+atob(uo[i][4])+'" class="x_circle" alt="" /></div><b class="x_bcolor_x"><i id="e'+uo[i][0]+'" class="'+ntfy+'"></i></b><div'+linethrough+' class="div_users_div">'+uo[i][2]+'</div></div><hr>')
 
-// append pchat div
-p=document.createElement('div')
-pu='p'+uo[i][0]
-if(!de(pu)){
-p.id=pu; p.className='one2chat x_bottom_rounded x_bcolor_x svg_pmpm'
-pch.appendChild(p)}
-usr_length+=1}
+		// append pchat div
+		p=document.createElement('div')
+		pu='p'+uo[i][0]
+		if(!de(pu)){
+			p.id=pu; p.className='one2chat x_bottom_rounded x_bcolor_x svg_pmpm'
+			pch.appendChild(p)
+		}
+		usr_length+=1
+	}
 
-uin.className=uinonlinebg
-onl_str.sort()
-onl_str=onl_str.join(' ')
-onl.innerHTML=onl_str}
+	uin.className=uinonlinebg
+	onl_str.sort()
+	onl_str=onl_str.join(' ')
+	onl.innerHTML=onl_str
+}
 
 // ----------
 
@@ -1016,15 +1044,26 @@ setTimeout("shoop(de('avmottosbutton'),2,200);de('avmottosbutton').className='x_
 setTimeout("de('my_avatar_pic').className='mfa_anime'",200)}
 
 function avformcheck(ai,sz){
-tav=de('my_avatar_pic')
-if(typeof ai.files[0]=='object' && ai.files[0].size<sz){
-de('avatar').value='';tav.src='img/002.svg'
-setTimeout("shoop(de('avmottosbutton'),2,200);de('avmottosbutton').className='x_all_rounded x_accent_bg panel_button'",500)
-} else{ai.value=''
-de('avatar').value=de('avinit').value;tav.src=de('avinit').value
-de('avmaxsizedesc').className='x_accent_bg x_all_rounded nope'
-de('avmottosbutton').className='x_all_rounded x_bcolor_z panel_button'
-de('lblforup').style.opacity=0
-setTimeout("de('lblforup').style.opacity=1;de('avmaxsizedesc').className='x_overal x_right_rounded'",950)}}
+	tav=de('my_avatar_pic')
+	if(typeof ai.files[0]=='object' && ai.files[0].size<sz){
+	de('avatar').value='';tav.src='img/002.svg'
+	setTimeout("shoop(de('avmottosbutton'),2,200);de('avmottosbutton').className='x_all_rounded x_accent_bg panel_button'",500)
+	} else{ai.value=''
+	de('avatar').value=de('avinit').value;tav.src=de('avinit').value
+	de('avmaxsizedesc').className='x_accent_bg x_all_rounded nope'
+	de('avmottosbutton').className='x_all_rounded x_bcolor_z panel_button'
+	de('lblforup').style.opacity=0
+	setTimeout("de('lblforup').style.opacity=1;de('avmaxsizedesc').className='x_overal x_right_rounded'",950)}
+}
 
 // ----------
+
+function alert_logout () {
+	console.log('dentro')
+		swal.fire({
+		  title: 'Decea Cerrar Sessión?',
+		  text: 'Confirme si decea cerrar la sessión',
+		  icon: 'error',
+		  confirmButtonText: 'Cool'
+		})
+}

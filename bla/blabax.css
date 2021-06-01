@@ -1,8 +1,17 @@
 html{min-height:100%;min-width:100%}
 table{border-spacing:0 10px;margin:0} table td{font-size:90%;padding:5px}
 input,select,textarea{box-sizing:border-box;border-width:0;border-radius:0;font-size:100%;padding:0px;background-color:transparent;-moz-appearance:none;-webkit-appearance:none;}
-.pointer{cursor:pointer} *:focus{outline:none}
-.shorten{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pointer{
+	cursor:pointer
+}
+*:focus{
+	outline:none
+}
+.shorten{
+	white-space:nowrap;
+	overflow:hidden;
+	text-overflow:ellipsis
+}
 
 .bgbwsp{background-image:none;background-size:100%;background-position:bottom left;background-attachment:fixed;background-repeat:no-repeat}
 
@@ -14,6 +23,7 @@ input,select,textarea{box-sizing:border-box;border-width:0;border-radius:0;font-
 .online_title1{position:fixed;top:40px;right:1%;height:42px;min-width:180px;max-width:260px;width:20%}
 .online_title2{position:fixed;top:40px;right:1%;height:42px;min-width:180px;max-width:260px;width:20%;max-width:40%}
 .online_title_text{margin:12px;font-size:90%;line-height:20px;font-weight:bold;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none}
+
 .online_title_close{
 	margin:5px;
 	float:right;
@@ -24,23 +34,111 @@ input,select,textarea{box-sizing:border-box;border-width:0;border-radius:0;font-
 	background-repeat:no-repeat;
 	background-position:center center;
 }
-.online_title_dinero{
-	margin:5px;
-	float:right;
-	width:32px;
-	height:32px;
-	cursor:pointer;
-	background-size:80%;
-	background-repeat:no-repeat;
-	background-position:center center;
+
+.online_users1{
+
+	position:fixed;
+	top:80px;
+	bottom:55px;
+	right:1%;
+	min-width:180px;
+	max-width:260px;
+	width:20%;
+	overflow:hidden;
+	padding-top:8px;
+	display:inline-block;
 }
-.online_users1{position:fixed;top:80px;bottom:55px;right:1%;min-width:180px;max-width:260px;width:20%;overflow:hidden;padding-top:8px}
-.online_users2{position:absolute;top:80px;bottom:55px;right:1%;min-width:180px;max-width:260px;width:20%;max-width:40%;overflow:hidden;padding-top:15px}
-.single_online_user{font-weight:bold;margin:5px;margin-left:15px;line-height:35px;white-space:nowrap}
-.single_online_user span{cursor:pointer;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none}
-.single_online_user b{position:relative;left:-8px;top:12px;width:14px;height:14px;line-height:0;display:inline-block;border-radius:100%}
-.single_online_user i{margin:3px}
-.single_online_user img{float:left;width:30px;height:30px}
+
+.online_users2{
+
+	position:absolute;
+	top:80px;
+	bottom:55px;
+	right:1%;
+	min-width:180px;
+	max-width:260px;
+	width:20%;
+	max-width:40%;
+	overflow:hidden;
+	padding-top:15px;
+	display:inline-block;
+
+
+}
+.single_online_user{
+
+	font-weight:bold;
+	margin:6px;
+	/*margin-left:15px;*/
+	line-height:35px;
+/*	min-width:  40px;
+	min-height: 40px;
+	max-height: 40px;
+	min-width:  40px;*/
+	white-space:nowrap;
+	display:inline-block;
+
+}
+.div_users_div{
+
+	position:absolute;
+	left:45%;
+/*	top:12px;*/
+	/*width:12px;*/
+	margin-bottom: 20%;
+	cursor:pointer;
+	-webkit-user-select:none;
+	-moz-user-select:none;
+	-ms-user-select:none;
+	/*display: inline-block;*/
+}
+
+.single_online_user b{
+
+	position:absolute;
+	/*left:-4%;*/
+/*	top:12px;*/
+/*	width:12px;
+	height:14px;*/
+	min-width:  12px;
+	min-height: 12px;
+	max-height: 12px;
+	min-width:  12px;
+	line-height:0;
+
+
+}
+
+.single_online_user i{
+
+	min-width:  12px;
+	min-height: 12px;
+	max-height: 12px;
+	min-width:  12px;
+	position:   absolute;
+	top:        99%;
+  right:      390%;
+	display:inline-block;
+
+}
+
+.div1_para_img{
+	max-width:  14px;
+	min-width:  14px;
+	max-height: 14px;
+	min-height: 14px;
+}
+
+.single_online_user img{
+
+	position:   absolute;
+	max-width:  38px;
+	min-width:  38px;
+	max-height: 38px;
+	min-height: 38px;
+	right:      70%;
+
+}
 
 #chat_area{position:fixed;top:45px;bottom:55px;left:1%;overflow:hidden;cursor:ns-resize;word-wrap:break-word}
 .chat_area_emoticon{width:26px;height:26px;display:inline-block}
@@ -55,7 +153,7 @@ input,select,textarea{box-sizing:border-box;border-width:0;border-radius:0;font-
 #autoscroll img{margin:8px;width:26px;height:26px}
 
 #user_info{
-	/*position:fixed;
+	position:fixed;
 	top:40px;
 	right:1%;
 	width:450px;
@@ -66,7 +164,7 @@ input,select,textarea{box-sizing:border-box;border-width:0;border-radius:0;font-
 	padding:10px;
 	font-weight:bold;
 	overflow:hidden;
-	display:none*/
+	display:none
 }
 .user_butt{position:fixed;top:45px;right:1%;margin:8px 5px 0 0;padding:10px;display:none}
 .user_butt span{width:32px;height:32px;display:inline-block;background-position:center;background-size:80%;background-repeat:no-repeat}
@@ -87,14 +185,30 @@ input,select,textarea{box-sizing:border-box;border-width:0;border-radius:0;font-
 	margin-bottom:10px;
 }
 .one2chat{position:fixed;top:116px;right:1%;bottom:55px;width:450px;max-width:80%;min-width:200px;padding:10px;overflow:auto;display:none;background-position:center;background-size:70%;background-repeat:no-repeat}
-.pchat_notify{width:8px;height:8px;border-radius:100%;display:inline-block;line-height:8px;margin-right:3px}
-.pchat_notify_on{width:8px;height:8px;border-radius:100%;display:inline-block;line-height:8px;margin-right:3px;animation:blinker 2s linear infinite}
+.pchat_notify{
+	width:8%;
+	height:8%;
+	border-radius:100%;
+	display:inline-block;
+	line-height:8px;
+	margin-right:3px;
+}
+.pchat_notify_on{
+	width:8px;
+	height:8px;
+	border-radius:100%;
+	display:inline-block;
+	line-height:8px;
+	margin-right:3px;
+	animation:blinker 2s linear infinite
+}
 @keyframes blinker{50%{opacity:0}}
 
 .status_select{position:fixed;top:2px;min-width:180px;max-width:260px;width:20%;right:1%;text-align:right;font-size:85%;cursor:pointer;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none}
 #statuses{position:fixed;top:2px;right:1%;min-width:180px;max-width:260px;width:20%;display:none}
 #statuses div{margin:6px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;cursor:pointer}
 #statuses i{width:10px;height:10px;margin:10px 6px 0 10px;border-radius:100%;display:inline-block}
+
 .status1{background-color:#53C058;}
 .status2{background-color:#607D8B;}
 .status3{background-color:#FFC107;}
