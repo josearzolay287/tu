@@ -22,7 +22,20 @@ input,select,textarea{box-sizing:border-box;border-width:0;border-radius:0;font-
 #online_button img{margin:2px;width:38px;height:38px}
 .online_title1{position:fixed;top:40px;right:1%;height:42px;min-width:180px;max-width:260px;width:20%}
 .online_title2{position:fixed;top:40px;right:1%;height:42px;min-width:180px;max-width:260px;width:20%;max-width:40%}
-.online_title_text{margin:12px;font-size:90%;line-height:20px;font-weight:bold;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none}
+.online_title_text{
+	text-align: left;
+	margin:12px;
+	font-size:90%;
+	line-height:20px;
+	font-weight:bold;
+	-webkit-user-select:none;
+	-moz-user-select:none;
+	-ms-user-select:none
+}
+
+.paneles_canales{
+	margin-left: 200px;
+}
 
 .online_title_close{
 	margin:5px;
@@ -157,7 +170,7 @@ input,select,textarea{box-sizing:border-box;border-width:0;border-radius:0;font-
 	top:40px;
 	right:1%;
 	width:450px;
-	height:55px;
+	height:80px;
 	max-width:80%;
 	min-width:200px;
 	font-size:90%;
@@ -204,7 +217,20 @@ input,select,textarea{box-sizing:border-box;border-width:0;border-radius:0;font-
 }
 @keyframes blinker{50%{opacity:0}}
 
-.status_select{position:fixed;top:2px;min-width:180px;max-width:260px;width:20%;right:1%;text-align:right;font-size:85%;cursor:pointer;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none}
+.status_select{
+	position:fixed;
+	top:2px;
+	min-width:180px;
+	max-width:260px;
+	width:20%;
+	right:1%;
+	text-align:right;
+	font-size:85%;
+	cursor:pointer;
+	-webkit-user-select:none;
+	-moz-user-select:none;
+	-ms-user-select:none
+}
 #statuses{position:fixed;top:2px;right:1%;min-width:180px;max-width:260px;width:20%;display:none}
 #statuses div{margin:6px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;cursor:pointer}
 #statuses i{width:10px;height:10px;margin:10px 6px 0 10px;border-radius:100%;display:inline-block}
@@ -215,12 +241,31 @@ input,select,textarea{box-sizing:border-box;border-width:0;border-radius:0;font-
 .status4{background-color:#9C27B0;}
 .status5{background-color:#F44336;}
 
-.top_area{position:fixed;top:0;left:0;right:0;height:28px;line-height:25px;}
+.top_area{
+	position:fixed;
+	top:0;
+	left:0;
+	right:0;
+	height:28px;
+	line-height:25px;
+}
 .top_button{margin:2px;width:40px;height:36px;position:relative;top:-5px;cursor:pointer;background-size:115%;background-repeat:no-repeat;background-position:center center}
 #top_unread{position:fixed;left:42px;top:11px;width:8px;height:8px;border-radius:100%;cursor:pointer;display:none}
 #top2unread{position:fixed;left:54px;top:11px;width:8px;height:8px;border-radius:100%;cursor:pointer;display:none}
 
-#bottom_smile{position:fixed;left:5px; bottom:5px;width:50px;height:40px;background-repeat:no-repeat;background-size:60%;background-position:center;cursor:pointer}
+#bottom_smile{
+	position:fixed;
+	bottom:5px;
+	left: 20px;
+	border-radius:15px;
+	width:50px;
+	height:40px;
+	background-repeat:no-repeat;
+	background-size:55%;
+	background-position:center;
+	cursor:pointer
+}
+
 #bottom_middle{
 	position:fixed;
 	left:55px;
@@ -230,20 +275,40 @@ input,select,textarea{box-sizing:border-box;border-width:0;border-radius:0;font-
 	text-align:center
 }
 #bottom_middle input{
-	box-sizing: content-box;
-	width:94%;
+	/*box-sizing: content-box;*/
+	width:90%;
 	border-radius:15px;
-	margin-top:5px;
+	margin-top:6px;
 	margin-bottom:5px;
-  margin-left:23px;
+  margin-left:2%;
   background-color: #dfe;
 	height:70%;
-	padding:0 5px 0 5px;
+/*	padding:0 5px 0 5px;*/
 }
-#bottom_send{position:fixed;right:5px;bottom:5px;width:50px;height:40px;text-align:right;background-repeat:no-repeat;background-size:70%;background-position:center;cursor:pointer}
+#bottom_send{
+	position:absolute;
+	right:20px;
+	bottom:5px;
+	width:50px;
+	height:40px;
+	text-align:right;
+	background-repeat:no-repeat;
+	background-size:65%;
+	background-position:left;
+	cursor:pointer;
+	border-radius:15px;
+}
 
 #hidescreen_tran{position:fixed;top:0;left:0;bottom:0;right:0;opacity:0.8;display:none}
-#hidescreen_part{position:fixed;top:32px;left:0;bottom:0;right:0;opacity:0.8;display:none}
+#hidescreen_part{
+	position:fixed;
+	top:32px;
+	left:0;
+	bottom:0;
+	right:0;
+	opacity:0.8;
+	display:none
+}
 #hidescreen_opaq{position:fixed;top:0;left:0;bottom:0;right:0;display:none}
 #hidescreen_blur{position:fixed;top:0;left:0;bottom:0;right:0;display:none;opacity:0.6;background-color:#000}
 
@@ -263,8 +328,19 @@ input,select,textarea{box-sizing:border-box;border-width:0;border-radius:0;font-
 .panel_sounds span{float:left;display:inline-block;white-space:nowrap;overflow:hidden;width:75%;height:30px;opacity:0.5}
 .panel_sounds input{float:left;background-repeat:no-repeat;background-position:center;width:20%;height:30px;background-size:20px 20px;margin:0;margin-right:1px}
 
-.panel_room{width:88%;margin:auto;margin-bottom:30px}
-.panel_room div{float:right;font-size:22px;line-height:24px;padding:8px;min-width:32px;border-top:8px solid}
+.panel_room{
+/*	width:88%;
+	margin-bottom:30px;*/
+	background-color:black;
+}
+.panel_room div{
+	float:right;
+	font-size:22px;
+	line-height:24px;
+	padding:8px;
+	min-width:32px;
+	border-top:8px solid;
+}
 .panel_room span{font-size:140%;font-weight:600}
 
 .panel_pmitem{padding:15px 0 15px 0;text-align:left!important}
@@ -275,7 +351,17 @@ input,select,textarea{box-sizing:border-box;border-width:0;border-radius:0;font-
 
 #system_info{position:fixed;top:30%;width:80%;left:5%;padding:5%;font-size:100%;text-align:center;display:none}
 
-#box_emoji_stickers{position:fixed;bottom:50px;right:1%;left:1%;padding:1%;max-height:75%;overflow:auto;display:none}
+#box_emoji_stickers{
+	border-radius: 25px;
+	position:fixed;
+	bottom:50px;
+	right:1%;
+	left:1%;
+	padding:1%;
+	max-height:75%;
+	overflow:auto;
+	display:none
+}
 #box_emoji_stickers b{font-family:sans-serif;font-size:12px;display:inline-block;text-align:center;height:32px;line-height:32px;margin-top:4px;background-size:24px 24px;background-repeat:no-repeat;background-position:center}
 
 #middps{margin:auto;min-width:260px;width:460px;max-width:100%;padding:20px 0 20px 0;box-shadow:0 0 5px #111;visibility:hidden}
