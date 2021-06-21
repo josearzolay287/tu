@@ -12,11 +12,11 @@
 <div id="hidescreen_tran" class="x_bcolor_bg" onclick="show_hide()"></div>
 
 <div id="menu_box" class="x_bcolor_bg">
-<div style="padding-left:0;cursor:default">Chat <?php print $version;?></div>
-<div class="svg_dash" onclick="self.location.href='admin.php'"><?php print $lang['dash'];?></div>
+<div style="padding-left:0;cursor:default">Panel de Administración</div>
+<div class="svg_dash" onclick="self.location.href='admin.php'">Tablero</div>
 <div class="svg_stat" onclick="self.location.href='admin.php?q=stats'"><?php print $lang['stats'];?></div>
 <div class="svg_logs" onclick="self.location.href='admin.php?q=logs'"><?php print $lang['logs'];?></div>
-<div class="svg_sett" onclick="self.location.href='admin.php?q=settings'"><?php print $lang['settings'];?></div>
+<div class="svg_sett" onclick="self.location.href='admin.php?q=settings'">Configuraciónes</div>
 <!--<div class="svg_addt" onclick="self.location.href='admin.php?q=addt'"><?php print $lang['addt'];?></div>-->
 <!--<div class="svg_styl" onclick="self.location.href='admin.php?q=style'"><?php print $lang['style'];?></div>-->
 <div class="svg_room" onclick="self.location.href='admin.php?q=rooms'"><?php print $lang['rooms'];?></div>
@@ -30,7 +30,7 @@
 <div id="hidescreen_prev" class="x_bcolor_bg" onclick="close_preview()"></div>
 <div id="preview" class="x_accent_bg"></div>
 
-<?php 
+<?php
 $ok=0;
 if(isset($_GET['ok'])){$ok=(int)$_GET['ok'];}
 if(($timestamp-$ok)<2){ ?>

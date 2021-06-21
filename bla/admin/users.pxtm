@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 $users=''; $search=''; $order=0; $where=0; $from=0;
 $where_clause=''; $order_clause='ORDER BY a.id DESC';
@@ -62,7 +62,7 @@ $users.='<tr class="x_bcolor_bg"><td>'.$cbox.'</td><td style="text-align:center"
 <form action="admin.php" method="get" autocomplete="off">
 
 
-<h2 onclick="self.location.href='admin.php'" class="pointer svg_usrs">
+<h2 class=" svg_usrs">
 <span style="float:right;height:40px;width:40px" class="svg_upup"></span>
 <?php print $lang['users'];?></h2>
 <hr />
@@ -92,7 +92,7 @@ $users.='<tr class="x_bcolor_bg"><td>'.$cbox.'</td><td style="text-align:center"
 </select>
 
 <select class="x_accent_bb" style="min-width:10%;max-width:30%" name="group">
-<?php 
+<?php
 
 $res=neutral_query('SELECT id,name FROM '.$dbss['prfx'].'_groups ORDER BY id ASC');
 print '<option value="0">'.$lang['agroup'].'</option>';
@@ -129,8 +129,8 @@ print '<option value="'.$gid.'"'.$sel.'>'.$gname.'</option>';
 <input type="hidden" name="whattodo" value="0" />
 </form>
 
-<?php 
-$page+=1; $pages+=1; $page2go=$page+1;if($page2go>$pages){$page2go=1;} 
+<?php
+$page+=1; $pages+=1; $page2go=$page+1;if($page2go>$pages){$page2go=1;}
 $info_line=$lang['page'].': <b>'.$page.'</b> ('.$pages.') &nbsp; '.$lang['users'].': '.$all;
 ?>
 

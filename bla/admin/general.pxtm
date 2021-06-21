@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head><title>ACP: <?php print $lang['general'];?></title>
+<head><title>ACP: Generales</title>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 <link rel="stylesheet" href="admin/<?php print $settings['acp_css'];?>" />
@@ -16,9 +16,9 @@
 <div class="holder">
 
 
-<h2 onclick="self.location.href='admin.php?q=settings'" class="pointer svg_sett">
+<h2  class="svg_sett">
 <span style="float:right;height:40px;width:40px" class="svg_upup"></span>
-<?php print $lang['general'];?></h2>
+Configuración General</h2>
 <hr />
 
 
@@ -28,19 +28,19 @@
 </div>
 <br /><hr />
 
-<div class="left"><?php print $lang['offset'];?> (<span class="x_accent_fg pointer" onclick="offset=new Date().getTimezoneOffset()*-1;de('acpoff').value=offset"><?php print $lang['detect'];?></span>)</div>
+<div class="left">Desplazamiento de tiempo ACP en minutos (<span class="x_accent_fg pointer" onclick="offset=new Date().getTimezoneOffset()*-1;de('acpoff').value=offset"></span>)</div>
 <div class="right">
 <input type="text" id="acpoff" class="x_accent_bb s250" maxlength="64" name="acp_offset" value="<?php print $settings['acp_offset'];?>" />
 </div>
 <br /><hr />
 
-<div class="left"><b class="pointer x_accent_fg" onclick="document.forms[0].cookie_salt.value=rand_str(50)"><?php print $lang['ckssalt'];?></b> (<?php print $lang['newsalt'];?>)</div>
+<div class="left"><b class="pointer x_accent_fg" onclick="document.forms[0].cookie_salt.value=rand_str(50)">Generar nueva cookie:</b> (<?php print $lang['newsalt'];?>)</div>
 <div class="right">
 <input type="text" class="x_accent_bb s250" maxlength="64" name="cookie_salt" value="<?php $x=htmlspecialchars($settings['cookie_salt']); print $x;?>" />
 </div>
 <br /><hr />
 
-<div class="left">ACP Style</div>
+<div class="left">Estilo ACP</div>
 <div class="right">
 <select class="x_accent_bb s250" name="acp_css">
 <?php if($settings['acp_css']=='1.css'){$sel=' selected="selected"';}else{$sel='';}?>
@@ -53,10 +53,10 @@
 </div>
 <br /><hr />
 
-<div class="left"><?php print $lang['deflang'];?></div>
+<div class="left">Idioma predeterminado</div>
 <div class="right">
 <select class="x_accent_bb s250" name="default_lang">
-<?php 
+<?php
 
 //prepare language options
 $lang2select=array();
@@ -70,7 +70,7 @@ $lang2select[]='<option title="'.$value[0].'" value="'.$key.'"'.$sel.'>'.$value[
 </div>
 <br /><hr />
 
-<div class="left"><?php print $lang['defampm'];?></div>
+<div class="left">Formato de hora predeterminado</div>
 <div class="right">
 <select class="x_accent_bb s250" name="default_ampm">
 <?php if($settings['default_ampm']==0){$sel=' selected="selected"';}else{$sel='';}?>
@@ -83,7 +83,7 @@ $lang2select[]='<option title="'.$value[0].'" value="'.$key.'"'.$sel.'>'.$value[
 </div>
 <br /><hr />
 
-<div class="left"><?php print $lang['defsndo'];?></div>
+<div class="left">Notificaciones sonoras</div>
 <div class="right">
 <select class="x_accent_bb s250" name="default_sound">
 <?php if($settings['default_sound']==1){$sel=' selected="selected"';}else{$sel='';}?>
@@ -94,7 +94,7 @@ $lang2select[]='<option title="'.$value[0].'" value="'.$key.'"'.$sel.'>'.$value[
 </div>
 <br /><hr />
 
-<div class="left"><?php print $lang['dragscr'];?></div>
+<div class="left">Arrastrar-2-desplazarse</div>
 <div class="right">
 <select class="x_accent_bb s250" name="drag2scroll">
 <?php if($settings['drag2scroll']==1){$sel=' selected="selected"';}else{$sel='';}?>
@@ -105,7 +105,7 @@ $lang2select[]='<option title="'.$value[0].'" value="'.$key.'"'.$sel.'>'.$value[
 </div>
 <br /><hr />
 
-<div class="left"><?php print $lang['wheescr'];?></div>
+<div class="left">Rueda-2-desplazamiento</div>
 <div class="right">
 <select class="x_accent_bb s250" name="whee2scroll">
 <?php if($settings['whee2scroll']==1){$sel=' selected="selected"';}else{$sel='';}?>
@@ -116,7 +116,7 @@ $lang2select[]='<option title="'.$value[0].'" value="'.$key.'"'.$sel.'>'.$value[
 </div>
 <br /><hr />
 
-<div class="left"><?php print $lang['dimblr'];?></div>
+<div class="left">Oscuro cuando chatbox pierde el foco</div>
 <div class="right">
 <select class="x_accent_bb s250" name="dimonblur">
 <?php if($settings['dimonblur']==1){$sel=' selected="selected"';}else{$sel='';}?>
@@ -127,7 +127,7 @@ $lang2select[]='<option title="'.$value[0].'" value="'.$key.'"'.$sel.'>'.$value[
 </div>
 <br /><hr />
 
-<div class="left"><?php print $lang['runsent'];?></div>
+<div class="left">Recordar mensajes no enviados por sala / usuario</div>
 <div class="right">
 <select class="x_accent_bb s250" name="rmb_unsent">
 <?php if($settings['rmb_unsent']==1){$sel=' selected="selected"';}else{$sel='';}?>
@@ -138,7 +138,7 @@ $lang2select[]='<option title="'.$value[0].'" value="'.$key.'"'.$sel.'>'.$value[
 </div>
 <br /><hr />
 
-<div class="left"><?php print $lang['meta_ref'];?></div>
+<div class="left">Meta de referencia (la no referencia puede romper los videos de YouTube)</div>
 <div class="right">
 <select class="x_accent_bb s250" name="meta_ref">
 <?php if($settings['meta_ref']=='no-referrer'){$sel=' selected="selected"';}else{$sel='';}?>
@@ -155,7 +155,7 @@ $lang2select[]='<option title="'.$value[0].'" value="'.$key.'"'.$sel.'>'.$value[
 </div>
 <br /><hr />
 
-<div class="left"><?php print $lang['allowgt'];?></div>
+<div class="left">Permitir inicios de sesión de invitados</div>
 <div class="right">
 <select class="x_accent_bb s250" name="allow_guest">
 <?php if($settings['allow_guest']==1){$sel=' selected="selected"';}else{$sel='';}?>
@@ -166,7 +166,7 @@ $lang2select[]='<option title="'.$value[0].'" value="'.$key.'"'.$sel.'>'.$value[
 </div>
 <br /><hr />
 
-<div class="left"><?php print $lang['allowrg'];?></div>
+<div class="left">Permitir a los usuarios registrarse</div>
 <div class="right">
 <select class="x_accent_bb s250" name="allow_reg">
 <?php if($settings['allow_reg']==1){$sel=' selected="selected"';}else{$sel='';}?>
@@ -177,13 +177,13 @@ $lang2select[]='<option title="'.$value[0].'" value="'.$key.'"'.$sel.'>'.$value[
 </div>
 <br /><hr />
 
-<div class="left"><?php print $lang['avsize'];?></div>
+<div class="left">Ancho/alto del avatar (80-512)</div>
 <div class="right">
 <input type="text" class="x_accent_bb s250" maxlength="10" name="avsize" value="<?php $x=(int)$settings['avsize']; print $x;?>" onblur="if(this.value!=parseInt(this.value) || parseInt(this.value)>512 || parseInt(this.value)<80){this.value=250}" />
 </div>
 <br /><hr />
 
-<div class="left"><?php print $lang['avatarfs'];?>
+<div class="left">Avatares máximo en bytes
 <pre style="font-size:80%"><?php
 
 $upload_max_filesize=@ini_get('upload_max_filesize');
@@ -203,70 +203,72 @@ print 'php.ini[memory_limit]: '.$memory_limit."\r\n";
 <div style="font-size:80%"><?php print $lang['helpsec'];?></div>
 <br /><hr />
 
-<div class="left"><?php print $lang['defbanp'];?></div>
+<div class="left">Período de prohibición en segundos</div>
 <div class="right">
 <input type="text" class="x_accent_bb s250" maxlength="9" name="ban_period" value="<?php $x=(int)$settings['ban_period']; print $x;?>" onblur="if(this.value!=parseInt(this.value) || parseInt(this.value)<3600){this.value=3600}" />
 </div>
 <br /><hr />
 
-<div class="left"><?php print $lang['keepiplg'];?></div>
+<div class="left">Período para mantener el registro de IP en segundos</div>
 <div class="right">
 <input type="text" class="x_accent_bb s250" maxlength="9" name="keepiplg" value="<?php $x=(int)$settings['keepiplg']; print $x;?>" onblur="if(this.value!=parseInt(this.value) || parseInt(this.value)<86400){this.value=86400}" />
 </div>
 <br /><hr />
 
-<div class="left"><?php print $lang['pml_s'];?></div>
+<div class="left">Registro de MP: período para buscar MP en segundos</div>
 <div class="right">
 <input type="text" class="x_accent_bb s250" maxlength="7" name="pmlog_stop" value="<?php $x=(int)$settings['pmlog_stop']; print $x;?>" onblur="if(this.value!=parseInt(this.value) || parseInt(this.value)<3600 || parseInt(this.value)>2000000){this.value=86400}" />
 </div>
 <br /><hr />
 
-<div class="left"><?php print $lang['postint'];?></div>
+<div class="left">Intervalo de publicación en segundos</div>
 <div class="right">
 <input type="text" class="x_accent_bb s250" maxlength="9" name="post_interval" value="<?php $x=(int)$settings['post_interval']; print $x;?>" onblur="if(this.value!=parseInt(this.value)){this.value=0}" />
 </div>
 <br /><hr />
 
-<div class="left"><?php print $lang['usrperh'];?></div>
+<div class="left">IP permitida para registrar X cuentas por hora</div>
 <div class="right">
 <input type="text" class="x_accent_bb s250" maxlength="9" name="userperhour" value="<?php $x=(int)$settings['userperhour']; print $x;?>" onblur="if(this.value!=parseInt(this.value) || parseInt(this.value)<1){this.value=5}" />
 </div>
 <br /><hr />
 
-<div class="left"><?php print $lang['wrnperh'];?></div>
+<div class="left">IP permitida X intentos fallidos de inicio de sesión por hora</div>
 <div class="right">
 <input type="text" class="x_accent_bb s250" maxlength="9" name="wrongperhour" value="<?php $x=(int)$settings['wrongperhour']; print $x;?>" onblur="if(this.value!=parseInt(this.value) || parseInt(this.value)<1){this.value=5}" />
 </div>
 <br /><hr />
 
-<div class="left"><?php print $lang['rldelay'];?></div>
+<div class="left">¡Cuarentena!<br>
+Se permite a los nuevos usuarios iniciar sesión X segundos, <br> después de registrarse o cuando la ACP lo aprueba</div>
 <div class="right">
 <input type="text" class="x_accent_bb s250" maxlength="9" name="reglog_delay" value="<?php $x=(int)$settings['reglog_delay']; print $x;?>" onblur="if(this.value!=parseInt(this.value)){this.value=0}" />
 </div>
 <br /><hr />
 
-<?php print $lang['defwelc'];?> <b class="pointer x_accent_fg" style="float:right" onclick="welcome()"><?php print $lang['resetdw'];?></b><br />&nbsp;<br />
+Mensaje de bienvenida predeterminado en el chat (solo HTML y CSS).<br> ¡Evite las comillas simples! <br>
+¡ANTERIORMENTE! carga los mensajes más recientes. <b class="pointer x_accent_fg" style="float:right" onclick="welcome()"><?php print $lang['resetdw'];?></b><br />&nbsp;<br />
 <textarea id="wmsg" name="welcome_msg" class="x_bcolor_bg" style="height:200px"><?php $x=htmlspecialchars($settings['welcome_msg']); print $x; ?></textarea>
 
 <br /><hr />
 
-<?php print $lang['mottos'];?><br />&nbsp;<br />
+Lemas aleatorios (uno por línea) para aquellos que no han recogido el suyo. HTML no compatible<br />&nbsp;<br />
 <textarea name="mottos" class="x_bcolor_bg" style="height:200px"><?php $x=htmlspecialchars($settings['mottos']); $x=explode('|',$x);$x=implode("\r\n",$x);print $x; ?></textarea>
 
 <br /><hr />
 
 
-<?php print $lang['badwords'];?><br />&nbsp;<br />
+Filtro de malas palabras - una palabra / frase por línea - no distingue entre mayúsculas y minúsculas, utilice solo letras, números y espacios. Esta es una ayuda y no una solución a prueba de balas: cualquier filtro se puede omitir fácilmente ya que diferentes letras UTF8 pueden tener el mismo aspecto, p. Ej. perra no es perra (CTRL + F y busque perra en esta página). Pruebe a fondo: puede haber un conflicto con las pegatinas y los emojis. Debe volver a cargar la página de chat para que los cambios surtan efecto.<br />&nbsp;<br />
 <textarea name="badwords" class="x_bcolor_bg" style="height:200px"><?php $x=htmlspecialchars($settings['badwords']); $x=explode(',',$x);$x=implode("\r\n",$x);print $x; ?></textarea>
 
 <br /><hr />
 
-<?php print $lang['pholders'];?> <b class="pointer x_accent_fg" style="float:right" onclick="pholders()">♥ ♥ ♥ </b><br />&nbsp;<br />
+Pista aleatoria divertida en lugar de Mensaje en el cuadro de texto; una frase por línea <b class="pointer x_accent_fg" style="float:right" onclick="pholders()">♥ ♥ ♥ </b><br />&nbsp;<br />
 <textarea name="pholders" class="x_bcolor_bg" style="height:200px"><?php $x=htmlspecialchars($settings['pholders']); print $x; ?></textarea>
 
 <br /><hr />
 
-<input type="submit" class="round4 x_bcolor_bg" style="width:100%;font-weight:bold;height:50px" value="<?php print $lang['submit'];?>" />
+<input type="submit" class="round4 x_bcolor_bg" style="width:100%;font-weight:bold;height:50px" value="<?php print $lang['submit'];?>"/>
 
 </div>
 

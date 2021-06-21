@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head><title>ACP: <?php print $lang['settings'];?></title>
+<head><title>ACP: Configuraciónes</title>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 <link rel="stylesheet" href="admin/<?php print $settings['acp_css'];?>" />
@@ -14,29 +14,29 @@
 
 <div class="holder">
 
-<h2 onclick="self.location.href='admin.php'" class="pointer svg_sett">
+<h2  class=" svg_sett">
 <span style="float:right;height:40px;width:40px" class="svg_upup"></span>
-<?php print $lang['settings'];?></h2>
+Configuraciónes</h2>
 <hr />
 
-<div class="left"><?php print $lang['gensett'];?></div>
-<div class="right"><input type="button" value="<?php print $lang['general'];?>" class="round4 x_bcolor_bg s250" onclick="self.location.href='admin.php?q=general'" /></div>
+<div class="left">Configuración general: título, idioma predeterminado, mensaje de bienvenida, inicio de sesión de invitado y más ...</div>
+<div class="right"><input type="button" value="Configuración general" class="round4 x_bcolor_bg s250" onclick="self.location.href='admin.php?q=general'" /></div>
 <br /><hr />
 
-<div class="left"><?php print $lang['soundds2'];?></div>
-<div class="right"><input type="button" value="<?php print $lang['soundds1'];?>" class="round4 x_bcolor_bg s250" onclick="self.location.href='admin.php?q=sounds'" /></div>
+<div class="left">Cree su propio archivo JavaScript de notificación de sonido utilizando sonidos predefinidos o archivos mp3 cargados.</div>
+<div class="right"><input type="button" value="Sonidos de notificación" class="round4 x_bcolor_bg s250" onclick="self.location.href='admin.php?q=sounds'" /></div>
 <br /><hr />
 
-<div class="left"><?php print $lang['utf8_dsc'];?></div>
+<div class="left">Escanee y compare nuevos nombres de usuario con diferentes subconjuntos Unicode. Afecta a los registros, invitados y usuarios de Facebook.</div>
 <div class="right"><input type="button" value="UTF8SCAN" class="round4 x_bcolor_bg s250" onclick="self.location.href='admin.php?q=utf8test'" /></div>
 <br /><hr />
 
-<div class="left"><?php print $lang['fusrds'];?></div>
+<div class="left">Los usuarios falsos aparecen en línea en la lista en línea, pero no interactúan con el servidor de chat de ninguna manera.</div>
 <div class="right"><input type="button" value="<?php print $lang['fusers'];?>" class="round4 x_bcolor_bg s250" onclick="self.location.href='admin.php?q=fusers'" /></div>
 <br /><hr />
 
-<div class="left"><?php print $lang['forcer'];?></div>
-<div class="right"><input type="button" value="<?php print $lang['uncache'];?>" class="round4 x_accent_bg s250" onclick="self.location.href='admin.php?uncache=1'" /></div>
+<div class="left">Reconstruya la caché de stickers, reconstruya la caché de avatares y elimine la caché de los archivos JS / CSS de los navegadores. Tienes que usar esta opción cuando editas archivos JS / CSS y cuando agregas o quitas stickers y avatares.</div>
+<div class="right"><input type="button" value="Reconstruir & Uncache" class="round4 x_accent_bg s250" onclick="self.location.href='admin.php?uncache=1'" /></div>
 <br /><hr />
 
 </div>

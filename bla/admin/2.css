@@ -5,7 +5,14 @@
 .x_bcolor_bg{color:#333;background-color:#ccc}
 .x_circle{border-radius:100%}
 hr{border:none;height:1px;margin-bottom:30px;background-color:#bbb}
-input,select,option,textarea{color:#222;background-color:#eee;font-size:13px;font-family:sans-serif;-moz-appearance:none;-webkit-appearance:none}
+input,select,option,textarea{
+	color:#222;
+	background-color:#eee;
+	font-size:13px;
+	font-family:sans-serif;
+	-moz-appearance:none;
+	-webkit-appearance:none
+}
 input[type="checkbox"]{border-radius:3px;width:20px;height:20px;background-color:#eee}
 input[type="checkbox"]:checked{background-color:#FB0255}
 input[type="color"]{height:30px;padding:0}
@@ -22,7 +29,14 @@ td{padding:10px}
 br{clear:both}
 h2{padding-left:45px;height:40px;line-height:40px;background-position:left center;background-repeat:no-repeat;background-size:40px 40px;}
 input{box-sizing:border-box;text-align:center;border-width:0;border-radius:0;padding:5px}
-select{-moz-appearance:none;-webkit-appearance:none;text-align:center;border-width:0;border-radius:0;padding:5px}
+select{
+	-moz-appearance:none;
+	-webkit-appearance:none;
+	text-align:center;
+	border-width:0;
+	border-radius:0;
+	padding:5px
+}
 
 .round4{border-radius:5px}
 .pointer{cursor:pointer}

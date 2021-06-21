@@ -335,7 +335,7 @@
      <div class="online_title_close svg_dinero"></div>
     <div class="online_title_text">
       <?php print $lang['online'];?>
-      <div class="dinero">100</div>
+      <div class="dinero">10</div>
       </div>
   </div>
 
@@ -477,13 +477,14 @@
           if(srv_usr_id==0){
             hsp.style.display='none'
           }
-          shoop(this,1,100); hoop(lof,0)
-        }
-        else{
+          shoop(this,1,100);
+          hoop(lof,0)
+        }else{
           if(srv_usr_id==0){
             hsp.style.display='block'
           }
-          shoop(this,1,100); hoop(lof,1)
+          shoop(this,1,100);
+          hoop(lof,1)
         }
       }
     ">

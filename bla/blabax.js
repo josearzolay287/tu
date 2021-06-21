@@ -113,7 +113,7 @@ function ax_ping(msg){
 		clearInterval(ax_intv)
 	}
 	rq='mtoken='+encodeURIComponent(mtoken)+'&msg='+encodeURIComponent(msg)+'&tousername='+encodeURIComponent(active_usrname)+'&status='+current_status+'&ohash='+ohash+'&dbid='+dbid+'&zone='+zone+'&ampm='+time_ampm+'&ajnm='+ajnm
-	console.log('rq:', rq)
+
 	ax_pulse=new XMLHttpRequest()
 	ax_pulse.open('post','ax_ping.php')
 	ax_pulse.setRequestHeader('Content-Type','application/x-www-form-urlencoded')
@@ -146,42 +146,55 @@ function ax_status(x){onl.innerHTML=''; log.innerHTML=x; if(load_history>0){load
 // ----------
 
 function msg_send(){
-if(inp.value.trim().length>0){
+	if(inp.value.trim().length>0){
 
-if(inp.readOnly==true){inp.value='';return}
+		if(inp.readOnly==true){
+			inp.value='';
+			return
+		}
+		console.log('valor del input:',inp.value.trim())
+		console.log('chat float:',chatflow)
+		currentt=Math.floor(Date.now()/1000)
+		if(currentt-poststamp<postint || blockuserchange>0 || blockroomchange>0){
+			if(currentt-poststamp<postint){
+				tmpspammsg=lang['no_spam']
+			}else{
+				tmpspammsg=lang['pwait']
+			}
+			usrmsg=inp.value
+			inp.value=tmpspammsg
+			inp.disabled=true
+			setTimeout('inp.disabled=false;inp.value=usrmsg;inp_focus()',1000)
+			return
+		}
 
-currentt=Math.floor(Date.now()/1000)
-if(currentt-poststamp<postint || blockuserchange>0 || blockroomchange>0){
-if(currentt-poststamp<postint){tmpspammsg=lang['no_spam']}else{tmpspammsg=lang['pwait']}
-usrmsg=inp.value
-inp.value=tmpspammsg
-inp.disabled=true
-setTimeout('inp.disabled=false;inp.value=usrmsg;inp_focus()',1000)
-return}
+		msg={}
+		msg['to']=ext_usr_id
+		msg['color']=current_color
+		msg['text']=inp.value
+		msg['room']=current_room
+		msg=JSON.stringify(msg)
 
-msg={}
-msg['to']=ext_usr_id
-msg['color']=current_color
-msg['text']=inp.value
-msg['room']=current_room
-msg=JSON.stringify(msg)
+		if(lof.style.display=='block'){
+			if(srv_usr_id==0){
+				hsp.style.display='none'
+			}
+			obj2hoop=false;
+			lof.style.display='none'
+		}
 
-if(lof.style.display=='block'){
-	if(srv_usr_id==0){
-		hsp.style.display='none'
+		if(chatflow<1){
+			ax_ping(msg)
+			if(ext_usr_id>0 && pm_reg>0){
+				pm_reorder(ext_usr_id,active_usrname)
+	    }
+    }
+		inp.value=''
+		inp_focus()
+		ascroll()
+		poststamp=currentt
 	}
-	obj2hoop=false;
-	lof.style.display='none'
 }
-
-if(chatflow<1){ax_ping(msg)
-if(ext_usr_id>0 && pm_reg>0){pm_reorder(ext_usr_id,active_usrname)}
-}
-
-inp.value=''
-inp_focus()
-ascroll()
-poststamp=currentt}}
 
 // ----------
 
@@ -427,9 +440,6 @@ function online_construct(){
 		}
 
 		sortbyname=uo[i][2].toLowerCase()
-		console.log('clase:',uo[i][1])
-		console.log('sortbyname:',uo[i][1])
-		console.log('sortbyname:',uo[i][2])
 		onl_str.push(
 			'<!-- '+sortbyname+' --><div onclick="show_user('+i+','+uo[i][0]+','+uo[i][1]+',\''+uo[i][2]+'\')" class="single_online_user shorten pointer"><div class="div1_para_img"><img src="'+atob(uo[i][4])+'" class="x_circle" alt="" /></div><b class="x_bcolor_x"><i id="e'+uo[i][0]+'" class="'+ntfy+'"></i></b><div'+linethrough+' class="div_users_div">'+uo[i][2]+'</div></div><hr>')
 

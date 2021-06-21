@@ -24,13 +24,13 @@ die();}
 <form action="admin.php" method="post" autocomplete="off">
 <div class="holder">
 
-<h2 onclick="self.location.href='admin.php?q=settings'" class="pointer svg_sett">
+<h2  class=" svg_sett">
 <span style="float:right;height:40px;width:40px" class="svg_upup"></span>
 UTF8SCAN</h2>
 <hr />
 
 
-<div class="left"><?php print $lang['utf8_run'];?></div>
+<div class="left">Existe un método popular para registrar nombres de usuario falsos usando alfabetos mixtos y esto no se puede hacer por accidente: John no es Jоhn (CTRL + F y busque John en esta página). Ejecute una prueba en nuevos nombres de usuario: permita subconjuntos Unicode específicos y no permita subconjuntos mixtos y nombres de usuario numéricos. No afectará a los nombres de usuario ya registrados. Si está desactivado, los nombres de usuario pueden contener letras, dígitos, guiones y espacios UTF8 mixtos.</div>
 <div class="right">
 <select class="x_accent_bb s250" name="utf8_run">
 <?php if($settings['utf8_run']==1){$sel=' selected="selected"';}else{$sel='';}?>
@@ -45,7 +45,7 @@ UTF8SCAN</h2>
 
 <div style="width:100%;overflow:auto">
 <table>
-<tr class="x_bcolor_bg"><td colspan="3" style="text-align:center"><b><?php print $lang['utf8_set'];?></b></td></tr>
+<tr class="x_bcolor_bg"><td colspan="3" style="text-align:center"><b>Subconjuntos unicode permitidos</b></td></tr>
 <tr class="x_bcolor_bg"><td colspan="3"></td></tr>
 
 <tr class="x_bcolor_bg">
@@ -128,7 +128,7 @@ UTF8SCAN</h2>
 </div>
 
 <br /><hr />
-<?php print $lang['utf8_msg'];?><br />&nbsp;<br />
+Ingrese un mensaje que se mostrará cuando UTF8SCAN encuentre un nombre de usuario numérico, un subconjunto unicode no permitido o subconjuntos unicode mixtos en el nombre de usuario.<br />&nbsp;<br />
 <textarea id="u8m" name="utf8_msg" class="x_bcolor_bg" style="height:200px"><?php $x=htmlspecialchars($settings['utf8_msg']); print $x; ?></textarea>
 
 
@@ -142,8 +142,8 @@ UTF8SCAN</h2>
 <form action="admin.php" onsubmit="utf8snd();return false"><div>
 <input type="text" id="utf8scan" maxlength="16" class="round4 x_bcolor_bg" style="width:49%;height:50px" placeholder="<?php print $lang['username'];?>" />
 <input type="button" class="round4 x_accent_bg" style="float:right;width:49%;font-weight:bold;height:50px" value="UTF8SCAN" onclick="utf8snd()">
-<div id="utf8res" class="x_bcolor_bg" style="margin-top:5px;text-align:center;padding:20px">&nbsp;</div>
-</div></form>
+<!-- <div id="utf8res" class="x_bcolor_bg" style="margin-top:5px;text-align:center;padding:20px">&nbsp;</div>
+ --></div></form>
 
 </div>
 
