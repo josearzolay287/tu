@@ -25,27 +25,27 @@ $regdate=gmdate('Y-m-d H:i:s',$user['timestamp']+$settings['acp_offset']*60);
 
 <div class="holder">
 
-<h2 onclick="self.location.href='admin.php?q=users'" class="pointer svg_usrs">
+<h2  class="svg_usrs">
 <span style="float:right;height:40px;width:40px" class="svg_upup"></span>
 <?php print $user['name'].' (id:'.$id.')';?></h2>
 <hr />
 
 <div>
-<?php  if($guest_user>0){print $lang['usr2hint'];}else{print $lang['usr1hint'];}?>
+<?php if($guest_user>0){print "Los usuarios invitados no tienen un correo electrónico, una contraseña ni un conjunto de preguntas y respuestas. Su autenticación se basa en su nombre de usuario y dirección IP. Los invitados solo pueden ser miembros del grupo <invitados>. Para convertir a este usuario invitado en uno registrado, complete todos los campos vacíos con cuidado y cambie su grupo.";}else{print "La contraseña y la respuesta de recuperación están cifradas en la base de datos y, por lo tanto, no se muestran.";}?>
 </div>
 
 <br /><hr />
 
-<div class="left"><?php print $lang['username'];?></div>
+<div class="left">Nombre de usuario</div>
 <div class="right">
 <input type="text" class="x_accent_bb s250" value="<?php print $user['name'];?>" readonly="readonly" />
 </div>
 <br /><hr />
 
-<div class="left"><?php print $lang['group'];?></div>
+<div class="left">Grupo</div>
 <div class="right">
 <select class="x_accent_bb s250" name="group">
-<?php 
+<?php
 
 $res=neutral_query('SELECT id,name FROM '.$dbss['prfx'].'_groups ORDER BY id ASC');
 
@@ -62,31 +62,31 @@ print '<option value="'.$gid.'"'.$sel.'>'.$gname.'</option>';
 </div>
 <br /><hr />
 
-<div class="left"><?php print $lang['uregdate'];?></div>
+<div class="left">Registrado</div>
 <div class="right">
 <input type="text" class="x_accent_bb s250" value="<?php print $regdate;?>" readonly="readonly" />
 </div>
 <br /><hr />
 
-<div class="left"><?php print $lang['usermail'];?></div>
+<div class="left">Establecer un nuevo correo electrónico</div>
 <div class="right">
 <input type="text" name="email" class="x_accent_bb s250" value="<?php $x=htmlspecialchars($user['email']); print $x;?>" />
 </div>
 <br /><hr />
 
-<div class="left"><?php print $lang['userpass'];?></div>
+<div class="left">Establecer nueva contraseña</div>
 <div class="right">
 <input type="text" name="password" class="x_accent_bb s250" value="" />
 </div>
 <br /><hr />
 
-<div class="left"><?php print $lang['userques'];?></div>
+<div class="left">Establecer una nueva pregunta de recuperación</div>
 <div class="right">
 <input type="text" name="question" class="x_accent_bb s250" value="<?php $x=htmlspecialchars($user['question']); print $x;?>" />
 </div>
 <br /><hr />
 
-<div class="left"><?php print $lang['useransw'];?></div>
+<div class="left">Establecer una nueva respuesta de recuperación</div>
 <div class="right">
 <input type="text" name="answer" class="x_accent_bb s250" value="" />
 </div>
@@ -106,7 +106,13 @@ print '<option value="'.$gid.'"'.$sel.'>'.$gname.'</option>';
 <div class="holder">
 <br /><hr />
 <div class="left">
-<?php $x=''; if(strlen($user['image'])>0){$x=htmlspecialchars($user['image']);print '<img src="'.$x.'" alt="" style="max-width:100px;max-height:100px" />';} ?>
+<?php
+	$x='';
+	if(strlen($user['image'])>0){
+		$x=htmlspecialchars($user['image']);
+		print '<img src="'.$x.'" alt="" style="max-width:100px;max-height:100px" />';
+	}
+?>
 </div>
 <div class="right">
 <input type="text" name="avatar" class="x_accent_bb s250" value="<?php print $x;?>" placeholder="<?php print $lang['avatar'];?>" />
@@ -120,7 +126,7 @@ print '<option value="'.$gid.'"'.$sel.'>'.$gname.'</option>';
 <form action="admin.php" method="post" autocomplete="off">
 <div class="holder">
 <br /><hr />
-<?php print $lang['fusrdsc'];?>
+<?php print "Ponga a este usuario en línea. Los usuarios falsos no interactúan con el servidor de chat de ninguna manera. Tenga cuidado: si el usuario real ingresa al chat, habrá dos usuarios idénticos en la lista en línea.";?>
 <p>&nbsp;</p>
 <input type="hidden" name="fakeuser" value="<?php print $id;?>" />
 <div style="text-align:right">
@@ -188,7 +194,7 @@ print '<option value="'.$gid.'"'.$sel.'>'.$gname.'</option>';
 </select>
 
 <input type="submit" class="round4 x_bcolor_bg" style="font-weight:bold;width:20%;height:50px" value="<?php print $lang['submit'];?>" />
-</div><br /><hr /></div></form> 
+</div><br /><hr /></div></form>
 
 <script>
 guest_user=<?php print $guest_user;?>
