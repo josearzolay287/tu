@@ -144,6 +144,10 @@
     display:none;
   }
 
+  .smiley_none{
+
+  }
+
   .dinero{
     margin-right: 20%;
     position: absolute;
@@ -229,7 +233,6 @@
   roomhistbutton=''; privhistbutton='';
 
   msg_template='<?php print $settings['msg_template'];?>';
-
   <?php
     if($settings['msg2db']>0){
   ?>
@@ -419,9 +422,30 @@
   </div>
 
   <div id="private_chats"></div>
-
   <div id="box_emoji_stickers" class="x_bcolor_y x_all_rounded">
-    <div id="list_of_emoji"><?php print $emos2dv;?></div>
+
+    <div id="list_of_emoji" class="smiley_none ocultar" >
+       <?php
+        foreach ($smileys as $smiley) {
+          $porciones = explode("/", $smiley);
+          $v1 = $porciones[1];
+          $v  = $porciones[2];
+          $extencion = explode(".",$v);
+          $extencion = $extencion[1];
+          $f = $v1.'_'.$v;
+        ?>
+         <span style="cursor:pointer;" onclick="
+          shoop(this,1,100);
+          montar_new_emoticon('<?php print $f; ?>');
+          ">
+            <img src="<?php print $smiley; ?>">
+          </span>
+      <?php
+      }
+      ?>
+    </div>
+    <div id="list_of_emoji" class="smiley_none"><?php print $emos2dv;?></div>
+
     <div id="list_of_stickers" style="margin-top:10px;display:none"></div>
     <b
       id="emoji_button"
@@ -429,6 +453,7 @@
                 lie.style.display='none';
                 sti.style.display='none';
                 hoop(lie,1);
+                mostrar_ocultar_smaley(0);
                 shoop(this,1,100)}"
       class="pointer x_all_rounded x_bcolor_z svg_bemo"
       style="width:80px;border-radius: 15px;">
@@ -440,14 +465,30 @@
     <?php
 
       foreach ($sticker_sets as $key => $value) {
+
         print '<b onclick="if(!obj2hoop){
-          lie.style.display=\'none\';sti.style.display=\'none\';sti.innerHTML=stickers_'.$key.';
+          lie.style.display=\'none\';
+          sti.style.display=\'none\';
+          sti.innerHTML=stickers_'.$key.';
+          mostrar_ocultar_smaley(0);
           hoop(sti,1);
           lof.scrollTop=lof.scrollHeight;shoop(this,1,100)
         }"
         class="pointer x_bcolor_z x_all_rounded"
         style="width:80px;border-radius: 15px;">'.$key.'</b>'."\n";
+
       }
+      print '<b onclick="if(!obj2hoop){
+          lie.style.display=\'none\';
+          sti.style.display=\'none\';
+          mostrar_ocultar_smaley(1);
+          hoop(sti,1);
+          lof.scrollTop=lof.scrollHeight;
+          shoop(this,1,100)
+        }"
+        class="pointer x_bcolor_z x_all_rounded"
+        style="width:80px;border-radius: 15px;">Smaley</b>'."\n";
+
     ?>
 
 
@@ -1213,6 +1254,37 @@
   <div id="hidescreen_blur"></div>
 
 <script>
+  var activar_smaley = 0
+
+  function montar_new_emoticon (emoticon) {
+    console.log('nuevo emoticon:', emoticon)
+    document.getElementById("text_input").value += ' ' + emoticon + ' '
+    console.log('nuevo emoticon ++:', document.getElementById("text_input").value)
+  }
+
+
+  function mostrar_ocultar_smaley (valor) {
+    console.log('valor:',valor)
+    var new_emo = document.getElementsByClassName('smiley_none')[0]
+    var old_emo = document.getElementsByClassName('smiley_none')[1]
+    if (valor === 1) {
+      console.log('dentro del 1')
+      old_emo.className += " ocultar"
+      new_emo.classList.remove("ocultar")
+      new_emo.style.display="block"
+      console.log('old_emo:',old_emo)
+      console.log('new_emo:',new_emo)
+    }else{
+      console.log('dentro del else')
+      old_emo.classList.remove("ocultar")
+      new_emo.classList.remove("sfade1")
+      new_emo.className += " ocultar"
+      new_emo.style.display="none"
+      console.log('old_emo:',old_emo)
+      console.log('new_emo:',new_emo)
+    }
+
+  }
 
   onx=de('online_title')
   onl=de('online_users')
@@ -1245,9 +1317,11 @@
   log.className='bgbwsp rr'+current_room;
 
   msgs2keep=<?php print $msgs2keep;?>;
+
   spinner='<div class="spinner"><div class="bounce1 x_accent_bg"></div><div class="bounce2 x_accent_bg"></div><div class="bounce3 x_accent_bg"></div></div>'
   postint=<?php print $settings['post_interval'];?>;
   ping_period=<?php print $ping_period;?>;
+
 
   welcome_raw='<?php print $welcome;?>';
   if(welcome_raw!='{PREVIOUSLY}'){
@@ -1494,7 +1568,6 @@
   if(settings['pmreg']>0){
     swap_pmreg(0,'<?php print $lang['on'];?>','<?php print $lang['off'];?>')
   }
-
   // ---
 
 </script>

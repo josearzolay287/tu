@@ -3,7 +3,7 @@
 require_once('config.php');
 require_once('incl/main.php');
 
-neutral_dbconnect(); $settings=get_settings(); get_language(); 
+neutral_dbconnect(); $settings=get_settings(); get_language();
 
 if(isset($_COOKIE[$xcookie_uidhash[0]])){ require_once 'incl/cookieauth.php'; } else{ redirect('account.php');die(); }
 
@@ -65,15 +65,19 @@ if(neutral_num_rows($res)<1){neutral_query('INSERT INTO '.$dbss['prfx']."_iplog 
 // prepare list of emoticons to replace
 require_once('emocodes.php');
 
-$emos2js='';  $emos2dv='';
+$activar_stikers = null;
+$emos2js='';
+$emos2dv='';
 
 foreach ($emoticons as $emo) {
-$emo=explode(' ',$emo);
-
-if(isset($emo[2])){
-$emos2js.="emos['".$emo[0]."']='".$emo[1]."';\r\n";
-if($emo[2]==1){$emos2dv.='<span class="'.$emo[1].' chat_list_emoticon" onclick="shoop(this,1,100);emo2input(\''.$emo[0].'\')"></span>';}
-}}
+	$emo=explode(' ',$emo);
+	if(isset($emo[2])){
+		$emos2js.="emos['".$emo[0]."']='".$emo[1]."';\r\n";
+		if($emo[2]==1){
+			$emos2dv.='<span class="'.$emo[1].' chat_list_emoticon" onclick="shoop(this,1,100);emo2input(\''.$emo[0].'\')"></span>';
+		}
+	}
+}
 
 //prepare language options
 $lang2select=array();
@@ -84,8 +88,18 @@ $lang2select[]='<option title="'.$value[0].'" value="'.$key.'"'.$sel.'>'.$value[
 
 // get stickers from cache or set empty array if no cache
 $mcach=neutral_query('SELECT * FROM '.$dbss['prfx']."_scache WHERE id='sticache1' OR id='sticache2'");
-while($row=neutral_fetch_array($mcach)){$msti[$row['id']]=$row['value'];}
-if(strlen($msti['sticache1'])<1){$sticker_sets=array();} else{$sticker_sets=unserialize(base64_decode($msti['sticache1']));}
+while($row=neutral_fetch_array($mcach)){
+	$msti[$row['id']]=$row['value'];
+}
+
+if(strlen($msti['sticache1'])<1){
+	$sticker_sets=array();
+} else{
+	$sticker_sets=unserialize(base64_decode($msti['sticache1']));
+}
+
+// var_dump($sticker_sets['smiley']);
+
 if(strlen($msti['sticache2'])<1){$stick2js='stickers=new Array();';} else{$stick2js=base64_decode($msti['sticache2']);}
 
 // prepare badwordsfilter
@@ -132,7 +146,7 @@ $pmlog.='<div style="font-weight:bold;text-align:left" class="shorten">'.$pmname
 }}else{$pmlog='';}
 
 // prepare rooms
-$rooms=array(); $rooms2js='rooms=new Array();'; $room_coosel=0; $room_getsel=0; $landing_room=1; 
+$rooms=array(); $rooms2js='rooms=new Array();'; $room_coosel=0; $room_getsel=0; $landing_room=1;
 
 if(isset($_COOKIE[$dbss['prfx'].'_room'])){$room_coosel=(int)$_COOKIE[$dbss['prfx'].'_room'];newcookie($dbss['prfx'].'_room','',time()-3600,'/');}
 if(isset($_GET['room'])){$room_getsel=(int)$_GET['room'];}
@@ -182,10 +196,10 @@ $ufake='fls_online={'.$ufake.'};';
 // textbox placeholder array
 $placeholders=str_replace(["\r",'"'],'',$settings['pholders']);
 $placeholders=htmlspecialchars($placeholders);
-$placeholders=explode("\n",$placeholders); 
+$placeholders=explode("\n",$placeholders);
 foreach($placeholders as $key => $value){if(strlen(trim($placeholders[$key]))>0){
 	$placeholders[$key]="'".base64_encode(trim($placeholders[$key]))."'";}}
-$placeholders=implode(',',$placeholders); 
+$placeholders=implode(',',$placeholders);
 if(strlen($placeholders)>0){$placeholders='placeholders=new Array('.$placeholders.');'."\n";}
 else{$placeholders='placeholders=new Array();'."\n";}
 

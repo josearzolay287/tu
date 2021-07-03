@@ -7,7 +7,10 @@ ax_intv=false;pmarrnotify=[];load_history=0; mdc=0;
 
 arr_rmb_rooms=new Array();
 arr_rmb_users=new Array();
-
+var buscar_emoticon_new = null;
+var buscar_emoticon_en_text = null;
+var array_emoticon = [];
+var new_text = '';
 zone=new Date();zone=-zone.getTimezoneOffset();
 
 try{dtitle=top.document.title.toString()}catch(e){dtitle=false}
@@ -194,6 +197,7 @@ function msg_send(){
 		ascroll()
 		poststamp=currentt
 	}
+		console.log('enviando mensaje')
 }
 
 // ----------
@@ -299,75 +303,144 @@ return x}
 // ----------
 
 function msg_display(x){
-msg2add='';  mdd='m'+mdc; mdc+=1;
+	console.log('abriendo mesaje')
+	msg2add='';
+	mdd='m'+mdc;
+	mdc+=1;
 
-time=x['time']
-clas=x['color'].toString()
-name=escape_str(x['name'])
-text=escape_str(x['text'])
-pbox=parseInt(x['pbox'])
-from=parseInt(x['fromid'])
-gclr=parseInt(x['group'])
-room=parseInt(x['room']); if(room>999998){room=current_room}
-attach=parseInt(x['attach'])
+	time=x['time']
+	clas=x['color'].toString()
+	name=escape_str(x['name'])
+	text=escape_str(x['text'])
+	pbox=parseInt(x['pbox'])
+	from=parseInt(x['fromid'])
+	gclr=parseInt(x['group'])
+	room=parseInt(x['room']);
+	if(room>999998){
+		room=current_room
+	}
+	attach=parseInt(x['attach'])
 
-for(i in ignored_users){if(ignored_users[i]==name){return}}
+	for(i in ignored_users){
+		if(ignored_users[i]==name){return}
+	}
 
-if(typeof badwordsfilter!=='undefined' && badwordsfilter.length>0){
-for(i in badwordsfilter){regex=new RegExp('('+badwordsfilter[i]+')','gi'); text=text.replace(regex,'***')}}
+	if(typeof badwordsfilter!=='undefined' && badwordsfilter.length>0){
+		for(i in badwordsfilter){
+			regex=new RegExp('('+badwordsfilter[i]+')','gi');
+			text=text.replace(regex,'***')
+		}
+	}
 
-text=msg_format(text)
+	text=msg_format(text)
 
-if(uxtra_avatars[from]){avsrc=atob(uxtra_avatars[from])}else{avsrc='avatar.php?q='+from}
-if(from==0){avsrc='img/000.svg'}
-htmlmsg=msg_template.replace('{AVATAR}',avsrc).replace('{TIME}',time).replace('{GROUP}','1').replace('{NAME}',name).replace('{UID}',from).replace('{COLOR}',clas).replace('{TEXT}',text)
+	if(uxtra_avatars[from]){
+		avsrc=atob(uxtra_avatars[from])
+	}else{
+		avsrc='avatar.php?q='+from
+	}
+	if(from==0){
+		avsrc='img/000.svg'
+	}
+	new_text =''
+	buscar_emoticon_en_text = text.trim().split(' ')
+	for (var i =0; i < buscar_emoticon_en_text.length; i++) {
 
-if(from<1 || room>0){
-rooms[room][4]++;
-htmlmsg='<!--'+rooms[room][4]+'-->'+htmlmsg;
-if(typeof rooms[room]=='object'){rooms[room][1]+=htmlmsg; rooms[room][2]++; if(bg_sound>0 && sound<1){sound=4}}
-if(current_room==room){msg2add=htmlmsg; if(sound<2 || sound==4){sound=2}}
-recalc_msg()}
+		array_emoticon = buscar_emoticon_en_text[i].trim().split('_')
+		if (array_emoticon[0] === 'smiley') {
+			new_text += ` <img src="stickers/smiley/${array_emoticon[1]}"> `
+		}else{
+			if (buscar_emoticon_en_text[i] !== null || buscar_emoticon_en_text[i] !== undefined) {
+				new_text += ` ${buscar_emoticon_en_text[i]}`
+			}
+		}
+	}
+	text = new_text
+	console.log('text final',text)
+	htmlmsg=msg_template.replace('{AVATAR}',avsrc).replace('{TIME}',time).replace('{GROUP}','1').replace('{NAME}',name).replace('{UID}',from).replace('{COLOR}',clas).replace('{TEXT}',text)
+  console.log('htmlmsg1',htmlmsg)
+	if(from<1 || room>0){
+		rooms[room][4]++;
+		htmlmsg='<!--'+rooms[room][4]+'-->'+htmlmsg;
+		if(typeof rooms[room]=='object'){
+			rooms[room][1]+=htmlmsg;
+			rooms[room][2]++;
+			if(bg_sound>0 && sound<1){
+				sound=4
+			}
+		}
+		if(current_room==room){
+			msg2add=htmlmsg;
+			if(sound<2 || sound==4){
+				sound=2
+			}
+		}
+		recalc_msg()
+	}else{
 
-else{
+		notify_now=0;
+		if(pbox!=ext_usr_id){
+			de('global_notify').className='x_accent_bg pchat_notify_on'
+			notify_now=1;
+			for(i in pmnotifications){
+				if(pmnotifications[i]==pbox){
+					notify_now=0
+				}
+			}
+			if(notify_now>0){
+				if(dtitle){
+					top.document.title='☺ ⊶ ☺ '+name
+				}
 
-notify_now=0; if(pbox!=ext_usr_id){
-de('global_notify').className='x_accent_bg pchat_notify_on'
+				msg2add=msg_template.replace('{AVATAR}','img/000.svg').replace('{TIME}','').replace('{GROUP}','1').replace('{NAME}',lang['system']).replace('{UID}',0).replace('{COLOR}',0).replace('{TEXT}',lang['pmmsg']+' <b class="pointer x_accent_fg" onclick="show2user('+pbox+',this)">'+name+'</b>')
+				console.log('msg2add',msg2add)
+				if(de('panel_pmlog').style.display!='block' || pan.style.display!='block'){
+					pmarrnotify_add(from); de('top2unread').style.display='block'; de('bot2unread').style.opacity=1.0;
+				}
+				sound=3;
+				pmnotifications.splice(1,0,pbox)
+			}
 
-notify_now=1; for(i in pmnotifications){if(pmnotifications[i]==pbox){notify_now=0}}
-if(notify_now>0){
-if(dtitle){top.document.title='☺ ⊶ ☺ '+name}
-msg2add=msg_template.replace('{AVATAR}','img/000.svg').replace('{TIME}','').replace('{GROUP}','1').replace('{NAME}',lang['system']).replace('{UID}',0).replace('{COLOR}',0).replace('{TEXT}',lang['pmmsg']+' <b class="pointer x_accent_fg" onclick="show2user('+pbox+',this)">'+name+'</b>')
+			tcss=de('e'+pbox).className
+			tcss=tcss.replace('pchat_notify_on','').replace('pchat_notify','').trim()
+			de('e'+pbox).className=tcss+' pchat_notify_on'
+		}
 
-if(de('panel_pmlog').style.display!='block' || pan.style.display!='block'){
-pmarrnotify_add(from); de('top2unread').style.display='block'; de('bot2unread').style.opacity=1.0;}
-sound=3; pmnotifications.splice(1,0,pbox)}
+		pmlog=de('p'+pbox)
+		if(from!=myuuid){
+			pm_reorder(from,name)
+		}
+		htmlmsg='<div id="'+mdd+'">'+htmlmsg+'</div>'
+		pmlog.innerHTML =pmlog.innerHTML+htmlmsg
+		pmlog.scrollTop=pmlog.scrollHeight
+		de(mdd).className='pmsgon';
+		setTimeout("de('"+mdd+"').className=''",300)
+		if(notify_now<1){
+			sound=5
+		}
+		mdd='m'+mdc;
+		mdc+=1
+	}
 
-tcss=de('e'+pbox).className
-tcss=tcss.replace('pchat_notify_on','').replace('pchat_notify','').trim()
-de('e'+pbox).className=tcss+' pchat_notify_on'}
+	// reduce msg
+	splitpoint=rooms[current_room][4]-msgs2keep+1
+	allmsg=log.innerHTML.split('<!--'+splitpoint+'-->')
+	console.log('allmsg:',allmsg)
+	msg2add='<div id="'+mdd+'">'+msg2add+'</div>'
+	console.log('msg2add:',msg2add)
+	if(allmsg[1]){
+		msg2add=allmsg[1]+msg2add
+	}else{
+		msg2add=allmsg[0]+msg2add
+	}
+	log.innerHTML=msg2add
 
-pmlog=de('p'+pbox)
-if(from!=myuuid){pm_reorder(from,name)}
-htmlmsg='<div id="'+mdd+'">'+htmlmsg+'</div>'
-pmlog.innerHTML =pmlog.innerHTML+htmlmsg
-pmlog.scrollTop=pmlog.scrollHeight
-de(mdd).className='pmsgon';
-setTimeout("de('"+mdd+"').className=''",300)
-if(notify_now<1){sound=5} mdd='m'+mdc; mdc+=1 }
+	de(mdd).className='msgoff'
+	setTimeout("de('"+mdd+"').className='msgonn'",10)
+	setTimeout("de('"+mdd+"').className=''",300)
 
-// reduce msg
-splitpoint=rooms[current_room][4]-msgs2keep+1
-allmsg=log.innerHTML.split('<!--'+splitpoint+'-->')
-msg2add='<div id="'+mdd+'">'+msg2add+'</div>'
-if(allmsg[1]){msg2add=allmsg[1]+msg2add}else{msg2add=allmsg[0]+msg2add}
-log.innerHTML=msg2add
-
-de(mdd).className='msgoff'
-setTimeout("de('"+mdd+"').className='msgonn'",10)
-setTimeout("de('"+mdd+"').className=''",300)
-
-scrolllog()}
+	scrolllog()
+}
 
 //-----------
 
@@ -390,10 +463,11 @@ s=de('pmlog_container').innerHTML;de('pmlog_container').innerHTML=pmele+s}
 // ----------
 
 function recalc_msg(){
-u=0; rooms[current_room][2]=0
-for(i in rooms){if(typeof rooms[i]=='object'){u+=rooms[i][2]; de('unr'+i).innerHTML=rooms[i][2]}}
-if(u>0){de('top_unread').style.display='block';de('bot_unread').style.opacity=1.0}else{de('top_unread').style.display='none';de('bot_unread').style.opacity=0.0}
-de('unr'+current_room).innerHTML='&#9733;'
+	console.log('recalc_msg',recalc_msg)
+	u=0; rooms[current_room][2]=0
+	for(i in rooms){if(typeof rooms[i]=='object'){u+=rooms[i][2]; de('unr'+i).innerHTML=rooms[i][2]}}
+	if(u>0){de('top_unread').style.display='block';de('bot_unread').style.opacity=1.0}else{de('top_unread').style.display='none';de('bot_unread').style.opacity=0.0}
+	de('unr'+current_room).innerHTML='&#9733;'
 }
 
 // ----------
@@ -831,24 +905,47 @@ function panput_style_back(x,y){x.className='x_bcolor_y x_accent_bb panel_input 
 // ---------- scrolling
 
 function nselect(x){
-if(allowselect<1 && x>0){
-allowselect=1;log.style.cursor='auto'}
-else{allowselect=0;log.style.cursor='ns-resize'
-if(document.selection){document.selection.empty()}
-if(window.getSelection){window.getSelection().removeAllRanges()}}}
+	// console.log('dentro del nselect:',x)
+	if(allowselect<1 && x>0){
+		allowselect=1;log.style.cursor='auto'
+	}else{
+		allowselect=0;log.style.cursor='ns-resize'
+		if(document.selection){
+			document.selection.empty()
+		}
+		if(window.getSelection){
+			window.getSelection().removeAllRanges()
+		}
+	}
+}
 
 function scrolllog(){if(autoscroll>0){log.scrollTop=log.scrollHeight}}
 
 function ascroll(){if(autoscroll<1){hoop(aus,0);autoscroll=1;scrolllog();inp_focus()}}
 
-function mdown(x){if(allowselect<1 && typeof x.preventDefault=='function'){
-x.preventDefault()}dragdown=true;dragypos=x.pageY}
+function mdown(x){
+	// console.log('dentro del mdown:',x)
+	if(allowselect<1 && typeof x.preventDefault=='function'){
+		x.preventDefault()}dragdown=true;dragypos=x.pageY
+}
 
 function mmove(x,y){
-if(dragdown==true && allowselect<1 && dragypos){
-x.scrollTop+=((dragypos-y.pageY)/6)
-if(autoscroll<1 && rbotto() && dragdown==true){hoop(aus,0);autoscroll=1;return}
-if(autoscroll>0 && !rbotto() && dragdown==true){hoop(aus,1);autoscroll=0}}}
+	// console.log('dentro del mmove x:',x)
+	// console.log('dentro del mmove y:',y)
+	if(dragdown==true && allowselect<1 && dragypos){
+		x.scrollTop+=((dragypos-y.pageY)/6)
+		if(autoscroll<1 && rbotto() && dragdown==true){
+			hoop(aus,0);
+			autoscroll=1;
+			return
+		}
+		if(autoscroll>0 && !rbotto() && dragdown==true){
+			hoop(aus,1);
+			autoscroll=0
+		}
+	}
+
+}
 
 function wmove(e){
 if(parseInt(e.deltaY)>0){z=15}else{z=-15} log.scrollTop+=z
@@ -971,22 +1068,39 @@ r=JSON.parse(r)
 msgfromdb=new Array()
 
 for(w in r){
-h_id=parseInt(r[w]['id'])
-h_color=parseInt(r[w]['color'])
-h_usrid=parseInt(r[w]['uid'])
-h_time=escape_str(r[w]['time'])
-h_uname=escape_str(r[w]['name'])
-h_avat=escape_str(r[w]['avatar'])
-h_text=escape_str(r[w]['text'])
-h_text=msg_format(h_text)
+	h_id=parseInt(r[w]['id'])
+	h_color=parseInt(r[w]['color'])
+	h_usrid=parseInt(r[w]['uid'])
+	h_time=escape_str(r[w]['time'])
+	h_uname=escape_str(r[w]['name'])
+	h_avat=escape_str(r[w]['avatar'])
+	h_text=escape_str(r[w]['text'])
+	h_text=msg_format(h_text)
 
-if(typeof badwordsfilter!=='undefined' && badwordsfilter.length>0){
-for(i in badwordsfilter){regex=new RegExp('('+badwordsfilter[i]+')','gi'); h_text=h_text.replace(regex,'***')}}
+	if(typeof badwordsfilter!=='undefined' && badwordsfilter.length>0){
+		for(i in badwordsfilter){
+			regex=new RegExp('('+badwordsfilter[i]+')','gi');
+			h_text=h_text.replace(regex,'***')
+		}
+	}
+		new_text = ''
+		buscar_emoticon_en_text = h_text.trim().split(' ')
+		for (var i =0; i < buscar_emoticon_en_text.length; i++) {
 
-msgft=msg_template.replace('{AVATAR}',h_avat).replace('{TIME}',h_time).replace('{GROUP}','1').replace('{NAME}',h_uname).replace('{UID}',h_usrid).replace('{COLOR}',h_color).replace('{TEXT}',h_text)
-msgfromdb[h_id]=msgft
+			array_emoticon = buscar_emoticon_en_text[i].trim().split('_')
+			if (array_emoticon[0] === 'smiley') {
+				new_text += ` <img src="stickers/smiley/${array_emoticon[1]}"> `
+			}else{
+				if (buscar_emoticon_en_text[i] !== null || buscar_emoticon_en_text[i] !== undefined) {
+					new_text += ` ${buscar_emoticon_en_text[i]}`
+				}
+			}
+		}
+		h_text = new_text
+	msgft=msg_template.replace('{AVATAR}',h_avat).replace('{TIME}',h_time).replace('{GROUP}','1').replace('{NAME}',h_uname).replace('{UID}',h_usrid).replace('{COLOR}',h_color).replace('{TEXT}',h_text)
+	msgfromdb[h_id]=msgft
 }
-
+console.log('msgft',msgft)
 msgfromdb=msgfromdb.join(' ');
 if(msgfromdb.length<1){msgfromdb=lang['nomsg'];}
 return msgfromdb

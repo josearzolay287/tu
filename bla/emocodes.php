@@ -55,6 +55,7 @@ $emoticons[]=':worried: svg_emo_worried 1';
 $emoticons[]=':zipper: svg_emo_zipper 1';
 
 // letters
+
 $emoticons[]=':a: svg_emo_a 1';
 $emoticons[]=':b: svg_emo_b 1';
 $emoticons[]=':c: svg_emo_c 1';
@@ -110,5 +111,71 @@ $emoticons[]=':clubs: svg_emo_clubs 1';
 // aliases or hidden emoticons
 $emoticons[]=':hiddensmile: svg_emo_smiling 0';
 $emoticons[]=':hiddenweary: svg_emo_weary 0';
+
+// smileys
+$smileys=[
+	"stickers/smiley/angel.png",
+	"stickers/smiley/angry.png",
+	"stickers/smiley/bear.png",
+	"stickers/smiley/blackface.png",
+	"stickers/smiley/blood.png",
+	"stickers/smiley/bomb.png",
+	"stickers/smiley/bye.png",
+	"stickers/smiley/cake.png",
+	"stickers/smiley/clap.png",
+	"stickers/smiley/cool.png",
+	"stickers/smiley/covermouth.png",
+	"stickers/smiley/cry.png",
+	"stickers/smiley/curse.png",
+	"stickers/smiley/devil.png",
+	"stickers/smiley/disdain.png",
+	"stickers/smiley/dizzy.png",
+	"stickers/smiley/drool.png",
+	"stickers/smiley/dumbfound.png",
+	"stickers/smiley/eat.png",
+	"stickers/smiley/effort.png",
+	"stickers/smiley/embarrassed.png",
+	"stickers/smiley/finger.png",
+	"stickers/smiley/gift.png",
+	"stickers/smiley/grimace.png",
+	"stickers/smiley/handhook.png",
+	"stickers/smiley/handshake.png",
+	"stickers/smiley/handsopen.png",
+	"stickers/smiley/headknock.png",
+	"stickers/smiley/heart.png",
+	"stickers/smiley/heartbroken.png",
+	"stickers/smiley/kiss.png",
+	"stickers/smiley/lip.png",
+	"stickers/smiley/lol.png",
+	"stickers/smiley/moneyineyes.png",
+	"stickers/smiley/moon.png",
+	"stickers/smiley/noodle.png",
+	"stickers/smiley/ok.png",
+	"stickers/smiley/picknose.png",
+	"stickers/smiley/pighead.png",
+	"stickers/smiley/piratas.jpg",
+	"stickers/smiley/question.png",
+	"stickers/smiley/redwine.png",
+	"stickers/smiley/rose.png",
+	"stickers/smiley/scorn.png",
+	"stickers/smiley/seared.png",
+	"stickers/smiley/sh.png",
+	"stickers/smiley/shit.png",
+	"stickers/smiley/shutup.png",
+	"stickers/smiley/shy.png",
+	"stickers/smiley/sleep.png",
+	"stickers/smiley/smile.png",
+	"stickers/smiley/stareyes.png",
+	"stickers/smiley/sun.png",
+	"stickers/smiley/sweatdrop.png",
+	"stickers/smiley/thumbsdown.png",
+	"stickers/smiley/thumbsup.png",
+	"stickers/smiley/tu-chat_verde.png",
+	"stickers/smiley/victory.png",
+	"stickers/smiley/vomit.png",
+	"stickers/smiley/waterfalldrops.png",
+	"stickers/smiley/wavehands.png",
+	"stickers/smiley/wronged.png",
+];
 
 ?>

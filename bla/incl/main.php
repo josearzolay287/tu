@@ -31,7 +31,7 @@ function redirect($u){ header('location:'.$u); die(); }
 
 // ------------------
 
-function makeclr($x){        
+function makeclr($x){
 $r_rgb=hexdec(substr($x,0,2));
 $g_rgb=hexdec(substr($x,2,2));
 $b_rgb=hexdec(substr($x,4,2));
@@ -89,12 +89,14 @@ return $randstr;}
 function get_settings(){
 
 global $dbss;
-$settings=array(); 
+$settings=array();
 
 $query='SELECT * FROM '.$dbss['prfx'].'_settings';
 $result=neutral_query($query);
 
-while($row=neutral_fetch_array($result)){$settings[$row['id']]=$row['value'];}
+while($row=neutral_fetch_array($result)){
+	$settings[$row['id']]=$row['value'];
+}
 
 return $settings;}
 
@@ -135,7 +137,7 @@ if(!isset($supersalt)){$supersalt=0;}
 // ------------------
 
 $timestamp=time();
-$random=mt_rand(1,999999); 
+$random=mt_rand(1,999999);
 if(!isset($ipaddr)){$ipaddr=$_SERVER['REMOTE_ADDR'];}
 if(isset($norealips) && $norealips>0){$ipaddr=sha1($ipaddr);}
 if(!isset($ping_period) || $ping_period<3 || $ping_period>20){$ping_period=5;}
