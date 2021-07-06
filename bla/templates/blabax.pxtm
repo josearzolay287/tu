@@ -148,6 +148,10 @@
 
   }
 
+  .gif_none{
+
+  }
+
   .dinero{
     margin-right: 20%;
     position: absolute;
@@ -424,7 +428,7 @@
   <div id="private_chats"></div>
   <div id="box_emoji_stickers" class="x_bcolor_y x_all_rounded">
 
-    <div id="list_of_emoji" class="smiley_none ocultar" >
+    <div id="list_of_emoji" class="smiley_none ocultar">
        <?php
         foreach ($smileys as $smiley) {
           $porciones = explode("/", $smiley);
@@ -444,6 +448,27 @@
       }
       ?>
     </div>
+    <div id="list_of_emoji" class="gif_none ocultar">
+       <?php
+        foreach ($gifs as $gif) {
+          $porciones = explode("/", $gif);
+          $v1 = $porciones[1];
+          $v  = $porciones[2];
+          $extencion = explode(".",$v);
+          $extencion = $extencion[1];
+          $f = $v1.'_'.$v;
+        ?>
+         <span style="cursor:pointer;" onclick="
+          shoop(this,1,100);
+          montar_new_emoticon('<?php print $f; ?>');
+          ">
+            <img src="<?php print $gif; ?>">
+          </span>
+      <?php
+      }
+      ?>
+    </div>
+
     <div id="list_of_emoji" class="smiley_none"><?php print $emos2dv;?></div>
 
     <div id="list_of_stickers" style="margin-top:10px;display:none"></div>
@@ -463,31 +488,16 @@
             <!-- Stikers -->
 
     <?php
-
-      foreach ($sticker_sets as $key => $value) {
-
-        print '<b onclick="if(!obj2hoop){
-          lie.style.display=\'none\';
-          sti.style.display=\'none\';
-          sti.innerHTML=stickers_'.$key.';
-          mostrar_ocultar_smaley(0);
-          hoop(sti,1);
-          lof.scrollTop=lof.scrollHeight;shoop(this,1,100)
-        }"
-        class="pointer x_bcolor_z x_all_rounded"
-        style="width:80px;border-radius: 15px;">'.$key.'</b>'."\n";
-
-      }
       print '<b onclick="if(!obj2hoop){
           lie.style.display=\'none\';
           sti.style.display=\'none\';
-          mostrar_ocultar_smaley(1);
+          mostrar_ocultar_gif(0);
           hoop(sti,1);
           lof.scrollTop=lof.scrollHeight;
           shoop(this,1,100)
         }"
         class="pointer x_bcolor_z x_all_rounded"
-        style="width:80px;border-radius: 15px;">Smaley</b>'."\n";
+        style="width:80px;border-radius: 15px;">Gif</b>'."\n";
 
     ?>
 
@@ -1264,27 +1274,75 @@
 
 
   function mostrar_ocultar_smaley (valor) {
-    console.log('valor:',valor)
-    var new_emo = document.getElementsByClassName('smiley_none')[0]
-    var old_emo = document.getElementsByClassName('smiley_none')[1]
-    if (valor === 1) {
-      console.log('dentro del 1')
-      old_emo.className += " ocultar"
-      new_emo.classList.remove("ocultar")
-      new_emo.style.display="block"
-      console.log('old_emo:',old_emo)
-      console.log('new_emo:',new_emo)
+
+    var smiley = document.getElementsByClassName('smiley_none')[0]
+    var gif = document.getElementsByClassName('gif_none')[0]
+    var cadena_text = smiley.className
+    var oculto = cadena_text.substr(12,19)
+    var cadena_text2 = gif.className
+    var oculto2 = cadena_text2.substr(9,16)
+
+    if (oculto === 'ocultar') { // activar
+      console.log('dentro del if')
+
+      smiley.classList.remove("ocultar")
+      smiley.style.display="block"
+
+      if (oculto2 !== 'ocultar') { // desactivar el gif que estaba activada
+
+        gif.style.display="none"
+        gif.className += " ocultar"
+        gif.classList.remove("sfade1")
+
+      }
+
     }else{
+
+      smiley.className += " ocultar"
+      smiley.style.display="none"
+      smiley.classList.remove("sfade1")
       console.log('dentro del else')
-      old_emo.classList.remove("ocultar")
-      new_emo.classList.remove("sfade1")
-      new_emo.className += " ocultar"
-      new_emo.style.display="none"
-      console.log('old_emo:',old_emo)
-      console.log('new_emo:',new_emo)
+      console.log('smiley:',smiley)
+
     }
 
   }
+  function mostrar_ocultar_gif(valor) {
+
+    var smiley = document.getElementsByClassName('smiley_none')[0]
+    var gif = document.getElementsByClassName('gif_none')[0]
+    console.log('text', gif.className)
+    var cadena_text = gif.className
+    var oculto = cadena_text.substr(9,16)
+    var cadena_text2 = smiley.className
+    var oculto2 = cadena_text2.substr(12,19)
+    console.log('oculto', oculto)
+    if (oculto === 'ocultar') { // activar
+
+      console.log('dentro del if')
+
+      gif.classList.remove("ocultar")
+      gif.style.display="block"
+
+      if (oculto2 !== 'ocultar') {  // desactivar el smaley que estaba activado
+
+        smiley.style.display="none"
+        smiley.className += " ocultar"
+        smiley.classList.remove("sfade1")
+
+      }
+
+    }else{
+
+      gif.className += " ocultar"
+      gif.style.display="none"
+      gif.classList.remove("sfade1")
+      console.log('dentro del else')
+      console.log('gif:',gif)
+    }
+
+  }
+
 
   onx=de('online_title')
   onl=de('online_users')

@@ -156,7 +156,6 @@ function msg_send(){
 			return
 		}
 		console.log('valor del input:',inp.value.trim())
-		console.log('chat float:',chatflow)
 		currentt=Math.floor(Date.now()/1000)
 		if(currentt-poststamp<postint || blockuserchange>0 || blockroomchange>0){
 			if(currentt-poststamp<postint){
@@ -344,21 +343,30 @@ function msg_display(x){
 	}
 	new_text =''
 	buscar_emoticon_en_text = text.trim().split(' ')
+
+	console.log('el text',text)
 	for (var i =0; i < buscar_emoticon_en_text.length; i++) {
 
 		array_emoticon = buscar_emoticon_en_text[i].trim().split('_')
-		if (array_emoticon[0] === 'smiley') {
-			new_text += ` <img src="stickers/smiley/${array_emoticon[1]}"> `
-		}else{
-			if (buscar_emoticon_en_text[i] !== null || buscar_emoticon_en_text[i] !== undefined) {
-				new_text += ` ${buscar_emoticon_en_text[i]}`
-			}
+		switch (array_emoticon[0]) {
+			case 'smiley':
+				new_text += ` <img src="stickers/smiley/${array_emoticon[1]}"> `
+				break;
+			case 'gif':
+				new_text += ` <img src="stickers/gif/${array_emoticon[1]}"> `
+				break;
+			default:
+				if (buscar_emoticon_en_text[i] !== null || buscar_emoticon_en_text[i] !== undefined) {
+					new_text += ` ${buscar_emoticon_en_text[i]}`
+				}
+				break;
 		}
+
 	}
 	text = new_text
 	console.log('text final',text)
 	htmlmsg=msg_template.replace('{AVATAR}',avsrc).replace('{TIME}',time).replace('{GROUP}','1').replace('{NAME}',name).replace('{UID}',from).replace('{COLOR}',clas).replace('{TEXT}',text)
-  console.log('htmlmsg1',htmlmsg)
+
 	if(from<1 || room>0){
 		rooms[room][4]++;
 		htmlmsg='<!--'+rooms[room][4]+'-->'+htmlmsg;
@@ -393,7 +401,7 @@ function msg_display(x){
 				}
 
 				msg2add=msg_template.replace('{AVATAR}','img/000.svg').replace('{TIME}','').replace('{GROUP}','1').replace('{NAME}',lang['system']).replace('{UID}',0).replace('{COLOR}',0).replace('{TEXT}',lang['pmmsg']+' <b class="pointer x_accent_fg" onclick="show2user('+pbox+',this)">'+name+'</b>')
-				console.log('msg2add',msg2add)
+
 				if(de('panel_pmlog').style.display!='block' || pan.style.display!='block'){
 					pmarrnotify_add(from); de('top2unread').style.display='block'; de('bot2unread').style.opacity=1.0;
 				}
@@ -425,9 +433,9 @@ function msg_display(x){
 	// reduce msg
 	splitpoint=rooms[current_room][4]-msgs2keep+1
 	allmsg=log.innerHTML.split('<!--'+splitpoint+'-->')
-	console.log('allmsg:',allmsg)
+
 	msg2add='<div id="'+mdd+'">'+msg2add+'</div>'
-	console.log('msg2add:',msg2add)
+
 	if(allmsg[1]){
 		msg2add=allmsg[1]+msg2add
 	}else{
@@ -463,7 +471,7 @@ s=de('pmlog_container').innerHTML;de('pmlog_container').innerHTML=pmele+s}
 // ----------
 
 function recalc_msg(){
-	console.log('recalc_msg',recalc_msg)
+
 	u=0; rooms[current_room][2]=0
 	for(i in rooms){if(typeof rooms[i]=='object'){u+=rooms[i][2]; de('unr'+i).innerHTML=rooms[i][2]}}
 	if(u>0){de('top_unread').style.display='block';de('bot_unread').style.opacity=1.0}else{de('top_unread').style.display='none';de('bot_unread').style.opacity=0.0}
@@ -812,8 +820,8 @@ localStorage.setItem(storkey_opt,JSON.stringify(settings))}
 // ----------
 
 function escape_str(x){
-x=x.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/'/g, '&#145;').replace(/"/g, '&quot;')
-return x}
+return x.trim()
+}
 
 // ----------
 
@@ -828,10 +836,38 @@ x=replace_all(x,key,'<span class="'+emos[key]+' chat_area_emoticon"></span>')
 
 // ----------
 
+
 function repl_links(x){
-pattern = /(\b(https?|ftp):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/gim
-x = x.replace(pattern,'<span style="text-decoration:underline" class="pointer x_accent_fg" onclick="wopen(\'$1\',1)">$1</span>')
-return x}
+
+	try {
+		pattern = /(\b(https?|ftp):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/gim
+		let v = x.split(" ")
+		console.log('v',v)
+		for (var i = 0; i < v.length; i++) {
+			let separados =	v[i].split("/")
+			if (
+				separados[0] === 'https:' ||
+				separados[0] === 'http:'
+			) {
+				if (separados[2] === 'www.youtube.com') {
+					var watch = separados[3].split('=')
+					var new_url = `${separados[0]}//${separados[2]}/embed/${watch[1]}`
+					var new_url_a = `${separados[0]}//${separados[2]}/watch?v=${watch[1]}`
+					console.log('watch',watch)
+					console.log('new_url',new_url)
+					x = x.replace(pattern,`  <iframe width="800" height="315" src="${new_url}?wmode=opaque&amp;autoplay=1&amp;rel=0&amp;color=white" frameborder="0"></iframe><a href="${new_url_a}" target="_blank">ir</a>`)
+					return x
+				}
+			}
+		}
+		x = x.replace(pattern,'<iframe width="560" height="315" src="$1" title="page"></iframe>')
+	return x
+	} catch(e) {
+		console.log(e);
+		return x
+	}
+
+}
 
 // ----------
 
@@ -1083,24 +1119,38 @@ for(w in r){
 			h_text=h_text.replace(regex,'***')
 		}
 	}
-		new_text = ''
-		buscar_emoticon_en_text = h_text.trim().split(' ')
-		for (var i =0; i < buscar_emoticon_en_text.length; i++) {
 
-			array_emoticon = buscar_emoticon_en_text[i].trim().split('_')
-			if (array_emoticon[0] === 'smiley') {
+	// <video width=320  height=240 controls >
+ //    <source src="ejemplo.webm" type="video/webm">
+ //    <source src="ejemplo.ogg"  type="video/ogg">
+ //    <source src="ejemplo.mp4" type="video/mp4">
+ //  </video>
+	new_text =''
+	buscar_emoticon_en_text = h_text.trim().split(' ')
+	for (var i =0; i < buscar_emoticon_en_text.length; i++) {
+
+		array_emoticon = buscar_emoticon_en_text[i].trim().split('_')
+
+		switch (array_emoticon[0]) {
+			case 'smiley':
 				new_text += ` <img src="stickers/smiley/${array_emoticon[1]}"> `
-			}else{
+				break;
+			case 'gif':
+				new_text += ` <img src="stickers/gif/${array_emoticon[1]}"> `
+				break;
+			default:
 				if (buscar_emoticon_en_text[i] !== null || buscar_emoticon_en_text[i] !== undefined) {
 					new_text += ` ${buscar_emoticon_en_text[i]}`
 				}
-			}
+				break;
 		}
-		h_text = new_text
+
+	}
+	h_text = new_text
 	msgft=msg_template.replace('{AVATAR}',h_avat).replace('{TIME}',h_time).replace('{GROUP}','1').replace('{NAME}',h_uname).replace('{UID}',h_usrid).replace('{COLOR}',h_color).replace('{TEXT}',h_text)
 	msgfromdb[h_id]=msgft
 }
-console.log('msgft',msgft)
+
 msgfromdb=msgfromdb.join(' ');
 if(msgfromdb.length<1){msgfromdb=lang['nomsg'];}
 return msgfromdb
