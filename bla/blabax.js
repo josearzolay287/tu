@@ -842,6 +842,7 @@ function repl_links(x){
 	try {
 		pattern = /(\b(https?|ftp):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/gim
 		let v = x.split(" ")
+		var url_link = x
 		console.log('v',v)
 		for (var i = 0; i < v.length; i++) {
 			let separados =	v[i].split("/")
@@ -850,12 +851,13 @@ function repl_links(x){
 				separados[0] === 'http:'
 			) {
 				if (separados[2] === 'www.youtube.com') {
-					var watch = separados[3].split('=')
-					var new_url = `${separados[0]}//${separados[2]}/embed/${watch[1]}`
-					var new_url_a = `${separados[0]}//${separados[2]}/watch?v=${watch[1]}`
-					console.log('watch',watch)
+					var new_url = url_link.replace('watch?v=','embed/')
+					var new_url_img = url_link.replace('www.youtube.com','img.youtube.com').replace('watch?v=','vi/')
+				 	new_url_img = `${new_url_img}/hqdefault.jpg`
+					console.log('new_url_img',new_url_img)
 					console.log('new_url',new_url)
-					x = x.replace(pattern,`  <iframe width="800" height="315" src="${new_url}?wmode=opaque&amp;autoplay=1&amp;rel=0&amp;color=white" frameborder="0"></iframe><a href="${new_url_a}" target="_blank">ir</a>`)
+					let new_msg = `<a href="#" onclick="activar_modal_video('${new_url}')"> <img width="315" height="315" src="${new_url_img}"></a><br><a href="${url_link}"> ir </a>`
+					x = x.replace(pattern,new_msg)
 					return x
 				}
 			}
