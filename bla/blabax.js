@@ -293,11 +293,9 @@ if(dw>400){log.style.width=(dw-(onl.clientWidth+pc))+'px'}
 // ----------
 
 function msg_format(x){
-msgsticker=false
-for(i in stickers){if(stickers[i]==x){msgsticker=1;x='<img src="'+x+'" class="chat_area_sticker" alt="" />'}}
-if(msgsticker){return x}
-x=repl_emoticons(x); x=repl_links(x)
-return x}
+x=repl_links(x)
+return x
+}
 
 // ----------
 
@@ -331,6 +329,7 @@ function msg_display(x){
 		}
 	}
 
+	console.log('texttt',text)
 	text=msg_format(text)
 
 	if(uxtra_avatars[from]){
@@ -342,7 +341,7 @@ function msg_display(x){
 		avsrc='img/000.svg'
 	}
 	new_text =''
-	buscar_emoticon_en_text = text.trim().split(' ')
+	buscar_emoticon_en_text = text.split(' ')
 
 	console.log('el text',text)
 	for (var i =0; i < buscar_emoticon_en_text.length; i++) {
@@ -842,28 +841,41 @@ function repl_links(x){
 	try {
 		pattern = /(\b(https?|ftp):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/gim
 		let v = x.split(" ")
-		var url_link = x
-		console.log('v',v)
+		console.log('la x:',x)
+
 		for (var i = 0; i < v.length; i++) {
-			let separados =	v[i].split("/")
-			if (
-				separados[0] === 'https:' ||
-				separados[0] === 'http:'
-			) {
-				if (separados[2] === 'www.youtube.com') {
-					var new_url = url_link.replace('watch?v=','embed/')
-					var new_url_img = url_link.replace('www.youtube.com','img.youtube.com').replace('watch?v=','vi/')
-				 	new_url_img = `${new_url_img}/hqdefault.jpg`
-					console.log('new_url_img',new_url_img)
-					console.log('new_url',new_url)
-					let new_msg = `<a href="#" onclick="activar_modal_video('${new_url}')"> <img width="315" height="315" src="${new_url_img}"></a><br><a href="${url_link}"> ir </a>`
-					x = x.replace(pattern,new_msg)
-					return x
+			let separados =	v[i].trim().split("/")
+
+			if (separados[0] === 'https:' || separados[0] === 'http:') {
+				let url_link = v[i]
+				switch (separados[2]) {
+					case 'www.youtube.com':
+						let new_url = url_link.replace('watch?v=','embed/')
+				  	new_url = new_url.trim().split('&')
+						let new_msg_video_youtube = `<br> <iframe width="560" height="315" src="${new_url[0]}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe> <br>`
+						x = x.replace(v[i],new_msg_video_youtube)
+						return x
+					break;
+
+					case 'www.dailymotion.com':
+						let new_url_dailymotion = url_link.trim().split('/')
+						console.log('new_url_dailymotion',new_url_dailymotion)
+						let dailymotion_embed = `${new_url_dailymotion[0]}//${new_url_dailymotion[2]}/embed/${new_url_dailymotion[3]}/${new_url_dailymotion[4]}`
+						let new_msg_video_dailymotion = `<br> <iframe width="560" height="315" src="${dailymotion_embed}?autoplay=1" title="dailymotion video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe> <br>`
+						x = x.replace(v[i],new_msg_video_dailymotion)
+						return x
+					break;
+						x = x.replace(v[i],`<br> <iframe width="560" height="315" src="${url_link}" title="page"></iframe> <a href="${url_link}"> <br> visitar </a> <br>`)
+						return x
+					default:
+
+					break;
+
 				}
+				return x
 			}
 		}
-		x = x.replace(pattern,'<iframe width="560" height="315" src="$1" title="page"></iframe>')
-	return x
+		return x
 	} catch(e) {
 		console.log(e);
 		return x
@@ -1122,13 +1134,8 @@ for(w in r){
 		}
 	}
 
-	// <video width=320  height=240 controls >
- //    <source src="ejemplo.webm" type="video/webm">
- //    <source src="ejemplo.ogg"  type="video/ogg">
- //    <source src="ejemplo.mp4" type="video/mp4">
- //  </video>
 	new_text =''
-	buscar_emoticon_en_text = h_text.trim().split(' ')
+	buscar_emoticon_en_text = h_text.split(' ')
 	for (var i =0; i < buscar_emoticon_en_text.length; i++) {
 
 		array_emoticon = buscar_emoticon_en_text[i].trim().split('_')
