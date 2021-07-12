@@ -257,7 +257,7 @@ input,select,textarea{box-sizing:border-box;border-width:0;border-radius:0;font-
 	position:fixed;
 	bottom:5px;
 	left: 20px;
-	border-radius:15px;
+	border-radius:10px;
 	width:50px;
 	height:40px;
 	background-repeat:no-repeat;
@@ -272,31 +272,31 @@ input,select,textarea{box-sizing:border-box;border-width:0;border-radius:0;font-
 	right:55px;
 	bottom:5px;
 	height:40px;
-	text-align:center
+	text-align:center;
+	border-radius:8px;
 }
 #bottom_middle input{
 	/*box-sizing: content-box;*/
-	width:90%;
-	border-radius:15px;
+	width:88%;
+	border-radius:12px;
 	margin-top:6px;
 	margin-bottom:5px;
-  margin-left:2%;
+  margin-left:1%;
   background-color: #dfe;
 	height:70%;
 /*	padding:0 5px 0 5px;*/
 }
 #bottom_send{
 	position:absolute;
-	right:20px;
+	right:5%;
 	bottom:5px;
-	width:50px;
+	width:49px;
 	height:40px;
-	text-align:right;
 	background-repeat:no-repeat;
 	background-size:65%;
-	background-position:left;
+	background-position:center;
 	cursor:pointer;
-	border-radius:15px;
+	border-radius:10px;
 }
 
 #hidescreen_tran{position:fixed;top:0;left:0;bottom:0;right:0;opacity:0.8;display:none}

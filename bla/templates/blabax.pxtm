@@ -71,7 +71,7 @@
     background-image: url(detener.png);
   }
 
-  #bottom_bmore{
+  .bottom_bmore{
     position: fixed;
     left: 40px;
     bottom: 5px;
@@ -144,13 +144,10 @@
     display:none;
   }
 
-  .smiley_none{
-
-  }
-
-  .gif_none{
-
-  }
+  .smiley_none{}
+  .gif_none{}
+  .meme_none{}
+  .audio_none{}
 
   .modalContainer {
       display: none;
@@ -221,22 +218,13 @@
 
   function changeClass(){
 
-    if (document.getElementById("bottom_bmore").className == "x_bcolor_z x_left_rounded svg_aonn") {
-      return
-    }
 
-        // code examples from above
-    if (document.getElementById("bottom_dmore").className == 'null sfade1') {
-      let elemento = document.getElementById("bottom_dmore")
-      elemento.classList.remove("sfade1");
-    }else{
-      document.getElementById("bottom_dmore").className += " sfade1";
-    }
   }
 
-  window.onload = function(){
-      document.getElementById("bottom_bmore").addEventListener('click', changeClass);
-  }
+  // window.onload = function(){
+  //   let eve = document.getElementsByClassName("bottom_bmore")[0]
+  //   eve.addEventListener('click', changeClass);
+  // }
 
   var repeat = 1                    // Si ponemos valor 0 sólo se repetirá unavez el movimiento
   var title = document.title
@@ -472,8 +460,7 @@
           $v1 = $porciones[1];
           $v  = $porciones[2];
           $extencion = explode(".",$v);
-          $extencion = $extencion[1];
-          $f = $v1.'_'.$v;
+          $f = $v1.'_'.$extencion[0];
         ?>
          <span style="cursor:pointer;" onclick="
           shoop(this,1,100);
@@ -492,8 +479,8 @@
           $v1 = $porciones[1];
           $v  = $porciones[2];
           $extencion = explode(".",$v);
-          $extencion = $extencion[1];
-          $f = $v1.'_'.$v;
+          $extencion = explode(".",$v);
+          $f = $v1.'_'.$extencion[0];
         ?>
          <span style="cursor:pointer;" onclick="
           shoop(this,1,100);
@@ -506,17 +493,45 @@
       ?>
     </div>
 
+    <div id="list_of_emoji" class="meme_none ocultar">
+       <?php
+        foreach ($memes as $meme) {
+          $porciones = explode("/", $meme);
+          $v1 = $porciones[1];
+          $v  = $porciones[2];
+          $extencion = explode(".",$v);
+          $f = $v1.'_'.$extencion[0];
+        ?>
+         <span style="cursor:pointer;" onclick="
+          shoop(this,1,100);
+          montar_new_emoticon('<?php print $f; ?>');
+          ">
+            <img  width="50px" height="50px" src="<?php print $meme; ?>">
+          </span>
+      <?php
+      }
+      ?>
+    </div>
+
+    <div id="list_of_emoji" class="audio_none ocultar">
+     <span style="cursor:pointer;" onclick="
+      shoop(this,1,100);
+      ">
+        <div id="recordingsList" class="null ocultar"></div>
+        <h5 id="grabando" class="null ocultar">Grabando</h5>
+      </span>
+    </div>
+
     <div id="list_of_emoji" class="smiley_none"><?php print $emos2dv;?></div>
 
     <div id="list_of_stickers" style="margin-top:10px;display:none"></div>
     <b
       id="emoji_button"
       onclick="if(!obj2hoop){
-                lie.style.display='none';
-                sti.style.display='none';
                 hoop(lie,1);
                 mostrar_ocultar_smaley(0);
-                shoop(this,1,100)}"
+                shoop(this,1,100)
+              }"
       class="pointer x_all_rounded x_bcolor_z svg_bemo"
       style="width:80px;border-radius: 15px;">
         &nbsp;
@@ -536,6 +551,31 @@
         class="pointer x_bcolor_z x_all_rounded"
         style="width:80px;border-radius: 15px;">Gif</b>'."\n";
 
+
+      print '<b onclick="if(!obj2hoop){
+          lie.style.display=\'none\';
+          sti.style.display=\'none\';
+          mostrar_ocultar_meme(0);
+          hoop(sti,1);
+          lof.scrollTop=lof.scrollHeight;
+          shoop(this,1,100)
+        }"
+        class="pointer x_bcolor_z x_all_rounded"
+        style="width:80px;border-radius: 15px;">Memes</b>'."\n";
+
+
+      print '<b onclick="if(!obj2hoop){
+          lie.style.display=\'none\';
+          sti.style.display=\'none\';
+          montar_audio(0);
+          startRecording();
+          hoop(sti,1);
+          lof.scrollTop=lof.scrollHeight;
+          shoop(this,1,100)
+        }"
+        class="pointer x_bcolor_z x_all_rounded svg_aonn"
+        style="width:80px;border-radius: 15px;">.</b>'."\n";
+
     ?>
 
 
@@ -552,9 +592,6 @@
         maxlength="320"
         placeholder=" <?php print $lang['message'];?> "
       />
-
-      <div id="recordingsList" class="null ocultar"></div>
-      <h5 id="grabando" class="null ocultar">Grabando</h5>
 
     </div>
 
@@ -578,15 +615,15 @@
     ">
     </div>
 
-    <div id="bottom_bmore" style="margin-left:22px;" title="Voice message - Video message - Doodle - Upload" class="x_bcolor_z x_left_rounded svg_aonn" onclick="startRecording(); changeClass()">
-    </div>
+   <!--  <div id="bottom_bmore" style="margin-left:22px;" title="Voice message - Video message - Doodle - Upload" class="x_bcolor_z x_left_rounded svg_aonn" onclick="startRecording(); changeClass()">
+    </div> -->
 
     <div id="bottom_dmore" class="null">
 
       <div style="width:5px;cursor:default"></div>
      <!--  <div id="recordButton" title="Voice message" class="svg_aonn" onclick="startRecording()"></div> -->
  <!--      <div id="pauseButton" title="Voice message" class="svg_pausa" onclick="pauseRecording()"></div> -->
-      <div id="stopButton" title="Voice message" class="svg_detener" onclick="stopRecording()"></div>
+    <!--   <div id="stopButton" title="Voice message" class="svg_detener" onclick="stopRecording()"></div> -->
 
 
       <div
@@ -1303,10 +1340,9 @@
 
 <script>
   var activar_smaley = 0
-  var url_para_el_modal = null
-  function activar_modal_video(url) {
-    console.log('dentro del activar modal')
-    url_para_el_modal = url
+
+  function open_ventana_url(url) {
+    window.open(url)
   }
 
   function montar_new_emoticon (emoticon) {
@@ -1316,24 +1352,49 @@
 
   function mostrar_ocultar_smaley (valor) {
 
-    var smiley = document.getElementsByClassName('smiley_none')[0]
-    var gif = document.getElementsByClassName('gif_none')[0]
-    var cadena_text = smiley.className
-    var oculto = cadena_text.substr(12,19)
-    var cadena_text2 = gif.className
-    var oculto2 = cadena_text2.substr(9,16)
+    let smiley = document.getElementsByClassName('smiley_none')[0]
+    let gif = document.getElementsByClassName('gif_none')[0]
+    let meme = document.getElementsByClassName('meme_none')[0]
+    let audio = document.getElementsByClassName('audio_none')[0]
 
-    if (oculto === 'ocultar') { // activar
-      console.log('dentro del if')
+    let cadena_text_audio = audio.className
+    let oculto_audio = cadena_text_audio.substr(11,18)
+
+    let cadena_text_meme = meme.className
+    let oculto_meme = cadena_text_meme.substr(10,18)
+
+    let cadena_text_smaley = smiley.className
+    let ocultar_smaley = cadena_text_smaley.substr(12,19)
+
+    let cadena_text_gif = gif.className
+    let oculto_gif = cadena_text_gif.substr(9,16)
+
+    if (ocultar_smaley === 'ocultar') { // activar
 
       smiley.classList.remove("ocultar")
       smiley.style.display="block"
 
-      if (oculto2 !== 'ocultar') { // desactivar el gif que estaba activada
+      if (oculto_gif !== 'ocultar') { // desactivar el gif que estaba activada
 
         gif.style.display="none"
         gif.className += " ocultar"
         gif.classList.remove("sfade1")
+
+      }
+
+      if (oculto_meme !== 'ocultar') { // desactivar el meme que estaba activada
+
+        meme.style.display="none"
+        meme.className += " ocultar"
+        meme.classList.remove("sfade1")
+
+      }
+
+      if (oculto_audio !== 'ocultar') { // desactivar el meme que estaba activada
+
+        audio.style.display="none"
+        audio.className += " ocultar"
+        audio.classList.remove("sfade1")
 
       }
 
@@ -1342,34 +1403,116 @@
       smiley.className += " ocultar"
       smiley.style.display="none"
       smiley.classList.remove("sfade1")
-      console.log('dentro del else')
-      console.log('smiley:',smiley)
 
     }
 
   }
-  function mostrar_ocultar_gif(valor) {
 
-    var smiley = document.getElementsByClassName('smiley_none')[0]
-    var gif = document.getElementsByClassName('gif_none')[0]
-    console.log('text', gif.className)
-    var cadena_text = gif.className
-    var oculto = cadena_text.substr(9,16)
-    var cadena_text2 = smiley.className
-    var oculto2 = cadena_text2.substr(12,19)
-    console.log('oculto', oculto)
-    if (oculto === 'ocultar') { // activar
+  function montar_audio (valor) {
 
-      console.log('dentro del if')
+    let smiley = document.getElementsByClassName('smiley_none')[0]
+    let gif = document.getElementsByClassName('gif_none')[0]
+    let meme = document.getElementsByClassName('meme_none')[0]
+    let audio = document.getElementsByClassName('audio_none')[0]
 
-      gif.classList.remove("ocultar")
-      gif.style.display="block"
+    let cadena_text_audio = audio.className
+    let oculto_audio = cadena_text_audio.substr(11,18)
 
-      if (oculto2 !== 'ocultar') {  // desactivar el smaley que estaba activado
+    let cadena_text_meme = meme.className
+    let oculto_meme = cadena_text_meme.substr(10,18)
+
+    let cadena_text_smaley = smiley.className
+    let ocultar_smaley = cadena_text_smaley.substr(12,19)
+
+    let cadena_text_gif = gif.className
+    let oculto_gif = cadena_text_gif.substr(9,16)
+
+    if (oculto_audio === 'ocultar') { // activar
+
+      audio.classList.remove("ocultar")
+      audio.style.display="block"
+
+      if (ocultar_smaley !== 'ocultar') {  // desactivar el smaley que estaba activado
 
         smiley.style.display="none"
         smiley.className += " ocultar"
         smiley.classList.remove("sfade1")
+
+      }
+
+      if (oculto_gif !== 'ocultar') {  // desactivar el gif que estaba activado
+
+        gif.style.display="none"
+        gif.className += " ocultar"
+        gif.classList.remove("sfade1")
+
+      }
+
+      if (oculto_meme !== 'ocultar') { // desactivar el meme que estaba activada
+
+        meme.style.display="none"
+        meme.className += " ocultar"
+        meme.classList.remove("sfade1")
+
+      }
+
+    }else{
+
+      audio.className += " ocultar"
+      audio.style.display="none"
+      audio.classList.remove("sfade1")
+
+    }
+
+
+  }
+
+
+  function mostrar_ocultar_gif(valor) {
+
+    let smiley = document.getElementsByClassName('smiley_none')[0]
+    let gif = document.getElementsByClassName('gif_none')[0]
+    let meme = document.getElementsByClassName('meme_none')[0]
+    let audio = document.getElementsByClassName('audio_none')[0]
+
+    let cadena_text_audio = audio.className
+    let oculto_audio = cadena_text_audio.substr(11,18)
+
+    let cadena_text_meme = meme.className
+    let oculto_meme = cadena_text_meme.substr(10,18)
+
+    let cadena_text_smaley = smiley.className
+    let ocultar_smaley = cadena_text_smaley.substr(12,19)
+
+    let cadena_text_gif = gif.className
+    let oculto_gif = cadena_text_gif.substr(9,16)
+
+    if (oculto_gif === 'ocultar') { // activar
+
+      gif.classList.remove("ocultar")
+      gif.style.display="block"
+
+      if (ocultar_smaley !== 'ocultar') {  // desactivar el smaley que estaba activado
+
+        smiley.style.display="none"
+        smiley.className += " ocultar"
+        smiley.classList.remove("sfade1")
+
+      }
+
+      if (oculto_meme !== 'ocultar') {  // desactivar el smaley que estaba activado
+
+        meme.style.display="none"
+        meme.className += " ocultar"
+        meme.classList.remove("sfade1")
+
+      }
+
+      if (oculto_audio !== 'ocultar') { // desactivar el meme que estaba activada
+
+        audio.style.display="none"
+        audio.className += " ocultar"
+        audio.classList.remove("sfade1")
 
       }
 
@@ -1378,8 +1521,65 @@
       gif.className += " ocultar"
       gif.style.display="none"
       gif.classList.remove("sfade1")
-      console.log('dentro del else')
-      console.log('gif:',gif)
+
+    }
+
+  }
+
+  function mostrar_ocultar_meme () {
+
+    let smiley = document.getElementsByClassName('smiley_none')[0]
+    let gif = document.getElementsByClassName('gif_none')[0]
+    let meme = document.getElementsByClassName('meme_none')[0]
+    let audio = document.getElementsByClassName('audio_none')[0]
+
+    let cadena_text_audio = audio.className
+    let oculto_audio = cadena_text_audio.substr(11,18)
+
+    let cadena_text_meme = meme.className
+    let oculto_meme = cadena_text_meme.substr(10,18)
+
+    let cadena_text_smaley = smiley.className
+    let ocultar_smaley = cadena_text_smaley.substr(12,19)
+
+    let cadena_text_gif = gif.className
+    let oculto_gif = cadena_text_gif.substr(9,16)
+
+    if (oculto_meme === 'ocultar') { // activar
+
+      meme.classList.remove("ocultar")
+      meme.style.display="block"
+
+      if (ocultar_smaley !== 'ocultar') {  // desactivar el smaley que estaba activado
+
+        smiley.style.display="none"
+        smiley.className += " ocultar"
+        smiley.classList.remove("sfade1")
+
+      }
+
+      if (oculto_gif !== 'ocultar') {  // desactivar el gif que estaba activado
+
+        gif.style.display="none"
+        gif.className += " ocultar"
+        gif.classList.remove("sfade1")
+
+      }
+
+      if (oculto_audio !== 'ocultar') { // desactivar el meme que estaba activada
+
+        audio.style.display="none"
+        audio.className += " ocultar"
+        audio.classList.remove("sfade1")
+
+      }
+
+    }else{
+
+      meme.className += " ocultar"
+      meme.style.display="none"
+      meme.classList.remove("sfade1")
+
     }
 
   }

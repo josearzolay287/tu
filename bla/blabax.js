@@ -68,37 +68,66 @@ setTimeout("obj2unhoop.style.transform='scale(1,1)';obj2unhoop.style.transform='
 function cdispl(a){return a.currentStyle?a.currentStyle.display:getComputedStyle(a,null).display}
 
 function clear_hoop(){
-if(typeof opad1 == 'number'){clearTimeout(opad1)}
-if(typeof opad2 == 'number'){clearTimeout(opad2)}
-if(obj2hoop){
-if(hoop_direction==1){obj2hoop.style.display='block';obj2hoop.style.opacity=1;}
-if(hoop_direction==2){obj2hoop.style.display='none';obj2hoop.style.opacity=0;}
-}}
+	console.log('dentro del clear hoop')
+	if(typeof opad1 == 'number'){clearTimeout(opad1)}
+	if(typeof opad2 == 'number'){clearTimeout(opad2)}
+	if(obj2hoop){
+		if(hoop_direction==1){
+			obj2hoop.style.display='block';
+			obj2hoop.style.opacity=1;
+		}
+		if(hoop_direction==2){
+			obj2hoop.style.display='none';
+			obj2hoop.style.opacity=0;
+		}
+	}
+}
 
 function hoop(a,b){
 
-if(typeof a!='object'){a=de(a)}
+	if(typeof a!='object'){
+		a=de(a)
+	}
+	if(hoop_on<1){
 
-if(hoop_on<1){
-if(b>0){a.style.display='block'}else{a.style.display='none'}
-return}
+		if(b>0){
+			a.style.display='block'
+		}else{
+			a.style.display='none'
+		}
 
-clear_hoop()
+		return
+	}
 
-if(b==1 && cdispl(a)=='none'){
-hoop_direction=1
-a.style.display='block'; a.style.opacity=0
-a.className=a.className.replace(' sfade0','')
-obj2hoop=a
-opad1=setTimeout("obj2hoop.style.opacity=1;obj2hoop.className+=' sfade1'",50)
-opad2=setTimeout("obj2hoop=false",500)}
+	clear_hoop()
 
-if(b==0 && cdispl(a)=='block'){
-hoop_direction=2; a.style.opacity=0
-a.className=a.className.replace(' sfade1','')
-a.className+=' sfade0'; obj2hoop=a
-opad1=setTimeout("obj2hoop.style.display='none'",400)
-opad2=setTimeout("obj2hoop=false",500)}
+	if(b==1 && cdispl(a)=='none'){
+		hoop_direction=1
+		a.style.display='block';
+		a.style.opacity=0
+		a.className=a.className.replace(' sfade0','')
+		obj2hoop=a
+		opad1=setTimeout("obj2hoop.style.opacity=1;obj2hoop.className+=' sfade1'",50)
+		opad2=setTimeout("obj2hoop=false",500)
+	}
+
+	if(b==0 && cdispl(a)=='block'){
+		console.log('dentro del block')
+		hoop_direction=2; a.style.opacity=0
+		a.className=a.className.replace(' sfade1','')
+		a.className+=' sfade0'; obj2hoop=a
+		opad1=setTimeout("obj2hoop.style.display='none'",400)
+		opad2=setTimeout("obj2hoop=false",500)
+	}
+	if (a.className == 'x_bcolor_y x_all_rounded sfade1') {
+		a.classList.remove("sfade1")
+		hsp.style.display='none'
+	}
+
+	if (a.className == 'x_bcolor_y x_all_rounded sfade0') {
+		a.classList.remove("sfade0")
+		hsp.style.display='none'
+	}
 }
 
 // ----------
@@ -328,8 +357,6 @@ function msg_display(x){
 			text=text.replace(regex,'***')
 		}
 	}
-
-	console.log('texttt',text)
 	text=msg_format(text)
 
 	if(uxtra_avatars[from]){
@@ -340,30 +367,8 @@ function msg_display(x){
 	if(from==0){
 		avsrc='img/000.svg'
 	}
-	new_text =''
-	buscar_emoticon_en_text = text.split(' ')
 
-	console.log('el text',text)
-	for (var i =0; i < buscar_emoticon_en_text.length; i++) {
-
-		array_emoticon = buscar_emoticon_en_text[i].trim().split('_')
-		switch (array_emoticon[0]) {
-			case 'smiley':
-				new_text += ` <img src="stickers/smiley/${array_emoticon[1]}"> `
-				break;
-			case 'gif':
-				new_text += ` <img src="stickers/gif/${array_emoticon[1]}"> `
-				break;
-			default:
-				if (buscar_emoticon_en_text[i] !== null || buscar_emoticon_en_text[i] !== undefined) {
-					new_text += ` ${buscar_emoticon_en_text[i]}`
-				}
-				break;
-		}
-
-	}
-	text = new_text
-	console.log('text final',text)
+	text = text_prepare(text)
 	htmlmsg=msg_template.replace('{AVATAR}',avsrc).replace('{TIME}',time).replace('{GROUP}','1').replace('{NAME}',name).replace('{UID}',from).replace('{COLOR}',clas).replace('{TEXT}',text)
 
 	if(from<1 || room>0){
@@ -865,10 +870,10 @@ function repl_links(x){
 						x = x.replace(v[i],new_msg_video_dailymotion)
 						return x
 					break;
-						x = x.replace(v[i],`<br> <iframe width="560" height="315" src="${url_link}" title="page"></iframe> <a href="${url_link}"> <br> visitar </a> <br>`)
-						return x
-					default:
 
+					default:
+						x = x.replace(v[i],`<br> <iframe width="560" height="315" src="${url_link}" title="page"></iframe> <br> <a onclick="open_ventana_url('${url_link}')">  visitar </a> <br>`)
+						return x
 					break;
 
 				}
@@ -1134,28 +1139,7 @@ for(w in r){
 		}
 	}
 
-	new_text =''
-	buscar_emoticon_en_text = h_text.split(' ')
-	for (var i =0; i < buscar_emoticon_en_text.length; i++) {
-
-		array_emoticon = buscar_emoticon_en_text[i].trim().split('_')
-
-		switch (array_emoticon[0]) {
-			case 'smiley':
-				new_text += ` <img src="stickers/smiley/${array_emoticon[1]}"> `
-				break;
-			case 'gif':
-				new_text += ` <img src="stickers/gif/${array_emoticon[1]}"> `
-				break;
-			default:
-				if (buscar_emoticon_en_text[i] !== null || buscar_emoticon_en_text[i] !== undefined) {
-					new_text += ` ${buscar_emoticon_en_text[i]}`
-				}
-				break;
-		}
-
-	}
-	h_text = new_text
+	h_text = text_prepare(h_text)
 	msgft=msg_template.replace('{AVATAR}',h_avat).replace('{TIME}',h_time).replace('{GROUP}','1').replace('{NAME}',h_uname).replace('{UID}',h_usrid).replace('{COLOR}',h_color).replace('{TEXT}',h_text)
 	msgfromdb[h_id]=msgft
 }
@@ -1244,9 +1228,34 @@ function avformcheck(ai,sz){
 function alert_logout () {
 	console.log('dentro')
 		swal.fire({
-		  title: 'Decea Cerrar Sessión?',
+		  title: 'Desea Cerrar Sessión?',
 		  text: 'Confirme si decea cerrar la sessión',
 		  icon: 'error',
 		  confirmButtonText: 'Cool'
 		})
+}
+
+function text_prepare (text_v_pre) {
+	let text_final = ''
+	buscar_emoticon_en_text = text_v_pre.split(' ')
+	for (var i =0; i < buscar_emoticon_en_text.length; i++) {
+		array_emoticon = buscar_emoticon_en_text[i].trim().split('_')
+		switch (array_emoticon[0]) {
+			case 'smiley':
+				text_final += ` <img src="stickers/smiley/${array_emoticon[1]}.png"> `
+				break;
+			case 'gif':
+				text_final += ` <img src="stickers/gif/${array_emoticon[1]}.gif"> `
+				break;
+			case 'meme':
+				text_final += ` <img width="50px" height="50px" src="stickers/meme/${array_emoticon[1]}.png"> `
+				break;
+			default:
+				if (buscar_emoticon_en_text[i] !== null || buscar_emoticon_en_text[i] !== undefined) {
+					text_final += ` ${buscar_emoticon_en_text[i]}`
+				}
+				break;
+		}
+	}
+	return text_final
 }

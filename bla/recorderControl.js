@@ -29,31 +29,9 @@ function startRecording() {
 
     console.log("recordButton clicked sdsdsd");
 
-    // esconder el campo de texto y muestra el grabando
-    document.getElementById("text_input").className += " ocultar"
-
-    if (document.getElementById("grabando").className == "null ocultar") {
-
-        document.getElementById("grabando").classList.remove("ocultar")
-
-    }else{
-
-        document.getElementById("grabando").className += " ocultar"
-
-    }
-
-    //cambiar icono y opcion a pausar
-
-    if (document.getElementById("bottom_bmore").className == "x_bcolor_z x_left_rounded svg_aonn") {
-
-        document.getElementById("bottom_bmore").classList.remove("svg_aonn")
-        document.getElementById("bottom_bmore").className += " svg_pausa"
-
-    }else{
-
-        pauseRecording()
-        document.getElementById("bottom_bmore").classList.remove("svg_pausa")
-        document.getElementById("bottom_bmore").className += " svg_aonn"
+    let grabando = document.getElementById("grabando")
+    if (grabando.className == "null ocultar") {
+        grabando.classList.remove("ocultar")
     }
 
     /* Simple constraints object, for more advanced audio features see
@@ -112,18 +90,10 @@ function pauseRecording() {
 
 function stopRecording() {
 
-    let elemento = document.getElementById("bottom_dmore")
-    elemento.classList.remove("sfade1");
     console.log('borrando clase del bottom')
 
     // velover el icono de grabar
 
-    if (document.getElementById("bottom_bmore").className == "x_bcolor_z x_left_rounded svg_pausa") {
-
-        document.getElementById("bottom_bmore").classList.remove("svg_pausa")
-        document.getElementById("bottom_bmore").className += " svg_aonn"
-
-    }
 
 
     console.log("stopButton clicked");
@@ -159,7 +129,6 @@ function createDownloadLink(blob) {
     //add the new audio and a elements to the li element
     //add the li element to the ordered list
     recordingsList.appendChild(au);
-    let elemento = document.getElementById("bottom_dmore")
     document.getElementById("grabando").className += " ocultar";
     recordingsList.classList.remove("ocultar");
 
