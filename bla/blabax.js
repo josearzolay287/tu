@@ -1251,8 +1251,8 @@ function text_prepare (text_v_pre) {
 				text_final += ` <img width="80px" height="80px" src="stickers/stickers/${array_emoticon[1]}.webp"> `
 				break;
 			case 'audio':
-			text_final += ` <audio controls src="audios/audio_${array_emoticon[1]}.ogg"></audio> `
-			break;
+				text_final += ` <br><audio controls src="audios/audio_${array_emoticon[1]}.ogg"></audio> `
+				break;
 			default:
 				if (buscar_emoticon_en_text[i] !== null || buscar_emoticon_en_text[i] !== undefined) {
 					text_final += ` ${buscar_emoticon_en_text[i]}`
