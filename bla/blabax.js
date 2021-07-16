@@ -1248,7 +1248,7 @@ function text_prepare (text_v_pre) {
 				text_final += ` <img src="stickers/gif/${array_emoticon[1]}.gif"> `
 				break;
 			case 'sticker':
-				text_final += ` <img width="80px" height="80px" src="stickers/meme/${array_emoticon[1]}.webp"> `
+				text_final += ` <img width="80px" height="80px" src="stickers/stickers/${array_emoticon[1]}.webp"> `
 				break;
 			case 'audio':
 			text_final += ` <audio controls src="audios/audio_${array_emoticon[1]}.ogg"></audio> `
