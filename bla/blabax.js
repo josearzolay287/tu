@@ -61,14 +61,15 @@ function shoop(x,y,z){
 // z = time; y = scaleFactor: 1,2,3 etc
 obj2unhoop=x; y=1-y*0.1
 obj2unhoop.style.transform='scale('+y+','+y+')'
-setTimeout("obj2unhoop.style.transform='scale(1,1)';obj2unhoop.style.transform='rotate(0deg)'",z)}
+setTimeout("obj2unhoop.style.transform='scale(1,1)';obj2unhoop.style.transform='rotate(0deg)'",z)
+}
 
 // ----------
 
 function cdispl(a){return a.currentStyle?a.currentStyle.display:getComputedStyle(a,null).display}
 
 function clear_hoop(){
-	console.log('dentro del clear hoop')
+
 	if(typeof opad1 == 'number'){clearTimeout(opad1)}
 	if(typeof opad2 == 'number'){clearTimeout(opad2)}
 	if(obj2hoop){
@@ -84,7 +85,6 @@ function clear_hoop(){
 }
 
 function hoop(a,b){
-
 	if(typeof a!='object'){
 		a=de(a)
 	}
@@ -184,7 +184,7 @@ function msg_send(){
 			inp.value='';
 			return
 		}
-		console.log('valor del input:',inp.value.trim())
+
 		currentt=Math.floor(Date.now()/1000)
 		if(currentt-poststamp<postint || blockuserchange>0 || blockroomchange>0){
 			if(currentt-poststamp<postint){
@@ -207,6 +207,7 @@ function msg_send(){
 		msg=JSON.stringify(msg)
 
 		if(lof.style.display=='block'){
+			hoop(lof,1)
 			if(srv_usr_id==0){
 				hsp.style.display='none'
 			}
@@ -225,7 +226,6 @@ function msg_send(){
 		ascroll()
 		poststamp=currentt
 	}
-		console.log('enviando mensaje')
 }
 
 // ----------
@@ -872,7 +872,7 @@ function repl_links(x){
 					break;
 
 					default:
-						x = x.replace(v[i],`<br> <iframe width="560" height="315" src="${url_link}" title="page"></iframe> <br> <a onclick="open_ventana_url('${url_link}')">  visitar </a> <br>`)
+						x = x.replace(v[i],`<br> <iframe width="560" height="315" src="${url_link}" title="page"></iframe> <br> <a style="cursor:pointer;" onclick="open_ventana_url('${url_link}')">  visitar </a> <br>`)
 						return x
 					break;
 
@@ -1247,9 +1247,12 @@ function text_prepare (text_v_pre) {
 			case 'gif':
 				text_final += ` <img src="stickers/gif/${array_emoticon[1]}.gif"> `
 				break;
-			case 'meme':
-				text_final += ` <img width="50px" height="50px" src="stickers/meme/${array_emoticon[1]}.png"> `
+			case 'sticker':
+				text_final += ` <img width="80px" height="80px" src="stickers/meme/${array_emoticon[1]}.webp"> `
 				break;
+			case 'audio':
+			text_final += ` <audio controls src="audios/audio_${array_emoticon[1]}.ogg"></audio> `
+			break;
 			default:
 				if (buscar_emoticon_en_text[i] !== null || buscar_emoticon_en_text[i] !== undefined) {
 					text_final += ` ${buscar_emoticon_en_text[i]}`

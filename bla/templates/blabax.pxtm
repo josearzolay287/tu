@@ -194,7 +194,7 @@
   }
 
   .svg_dinero{
-     background-image: url(pila_monedas_oro.png);
+     background-image: url(icons/pila_monedas_oro.png);
   }
 
   .oneline_text{
@@ -500,13 +500,13 @@
           $v1 = $porciones[1];
           $v  = $porciones[2];
           $extencion = explode(".",$v);
-          $f = $v1.'_'.$extencion[0];
+          $f = 'sticker_'.$extencion[0];
         ?>
          <span style="cursor:pointer;" onclick="
           shoop(this,1,100);
           montar_new_emoticon('<?php print $f; ?>');
           ">
-            <img  width="50px" height="50px" src="<?php print $meme; ?>">
+            <img  width="60px" height="60px" src="<?php print $meme; ?>">
           </span>
       <?php
       }
@@ -517,8 +517,17 @@
      <span style="cursor:pointer;" onclick="
       shoop(this,1,100);
       ">
-        <div id="recordingsList" class="null ocultar"></div>
-        <h5 id="grabando" class="null ocultar">Grabando</h5>
+      <h5 id="grabando" class="null ocultar">Grabando...</h5>
+        <section class="main-controls">
+          <canvas class="visualizer" height="20px"></canvas>
+          <div id="buttons">
+            <button class="record">Grabar</button>
+            <button class="stop_audio">Detener</button>
+          </div>
+          <br>
+        </section>
+
+      <section class="sound-clips"></section>
       </span>
     </div>
 
@@ -561,14 +570,13 @@
           shoop(this,1,100)
         }"
         class="pointer x_bcolor_z x_all_rounded"
-        style="width:80px;border-radius: 15px;">Memes</b>'."\n";
+        style="width:80px;border-radius: 15px;">Stickers</b>'."\n";
 
 
       print '<b onclick="if(!obj2hoop){
           lie.style.display=\'none\';
           sti.style.display=\'none\';
           montar_audio(0);
-          startRecording();
           hoop(sti,1);
           lof.scrollTop=lof.scrollHeight;
           shoop(this,1,100)
@@ -660,7 +668,9 @@
     <div
       id="bottom_send"
       class="x_bcolor_z x_right_rounded svg_send"
-      onclick="shoop(this,1,100);msg_send()">
+      onclick="
+      shoop(this,1,100);
+      msg_send()">
     </div>
 
   </form>
@@ -1870,7 +1880,7 @@
   // ---
 
 </script>
-
+<script src="recorder.js"></script>
 <?php print $settings['bottomjs'];?>
 
 </body>
